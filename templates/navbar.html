@@ -1,0 +1,132 @@
+<!-- NAVBAR NONAUTH -->
+{% if request.session.nonauth %}
+<nav class="navbar navbar-expand-lg  navbar-light">
+    <div class="container px-3">
+        <img src="photo_6244601910166403159_x.jpg"
+            height="60" width="150" alt="test" loading="lazy" style="margin-top: 2px;" />
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarsExample07"
+            aria-controls="navbarsExample07" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+    </div>
+</nav>
+{% endif %}
+
+<!-- NAVBAR CUSTOMER -->
+{% if request.session.is_customer %}
+<nav class="navbar navbar-expand-lg  navbar-light">
+    <div class="container px-3">
+        <img src="photo_6244601910166403159_x.jpg"
+            height="60" width="150" alt="test" loading="lazy" style="margin-top: 2px;" />
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarsExample07"
+            aria-controls="navbarsExample07" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+
+        <div class="collapse navbar-collapse justify-content-center" id="navbarsExample07">
+            <ul class="navbar-nav mr-auto">
+                <li class="nav-item">
+                    <a class="nav-link" href="{% url 'customer:dashboard_customer' %}">Dashboard <span
+                            class="sr-only"></span></a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="{% url 'customer:reservasi_customer' %}">
+                        Reservasi Pengguna
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="{% url 'customer:pemesanan_customer' %}">
+                        Pemesanan Kamar
+                    </a>
+                </li>
+            </ul>
+        </div>
+        <span class="navbar-text">
+            <a class="btn btn-danger btn-logout"  href="{% url 'authentication:logout' %}">Logout</a>
+        </span>
+    </div>
+</nav>
+{% endif %}
+
+<!-- NAVBAR HOTEL -->
+{% if request.session.is_hotel %}
+<nav class="navbar navbar-expand-lg  navbar-light">
+    <div class="container px-3">
+        <img src="photo_6244601910166403159_x.jpg"
+            height="60" width="150" alt="test" loading="lazy" style="margin-top: 2px;" />
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarsExample07"
+            aria-controls="navbarsExample07" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+
+        <div class="collapse navbar-collapse justify-content-center" id="navbarsExample07">
+            <ul class="navbar-nav mr-auto">
+                <li class="nav-item">
+                    <a class="nav-link" href="{% url 'hotel:dashboard_hotel' %}">Dashboard <span
+                            class="sr-only"></span></a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="{% url 'hotel:kamar_hotel' %}">
+                        Kamar Hotel
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="{% url 'hotel:fasilitas_hotel' %}">
+                        Fasilitas Hotel
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="{% url 'hotel:list_reservasi_hotel' %}">
+                        List Reservasi Hotel
+                    </a>
+                </li>
+            </ul>
+        </div>
+        <span class="navbar-text">
+            <a class="btn btn-danger btn-logout"  href="{% url 'authentication:logout' %}">Logout</a>
+        </span>
+    </div>
+</nav>
+{% endif %}
+<hr class="hr my-0" style="height: 10px; color: black;" />
+
+<style>
+    .nav-link:hover {
+        color: #6f99c0;
+        font-weight: 600;
+    }
+
+    .btn-logout {
+        background-color: white;
+        border-color: white;
+    }
+
+    .btn-logout:hover {
+        background-color: #dc3545;
+        color: white;
+
+    }
+
+    .navbar-nav>.active>a {
+        color: #6f99c0;
+        font-weight: 600;
+    }
+
+    .logo {
+        color: #77bbbc;
+        font-weight: 600;
+        font-size: x-large;
+    }
+</style>
+
+<script>
+    $(document).ready(function () {
+
+        $('ul.navbar-nav > li')
+            .click(function (e) {
+                $('ul.navbar-nav > li')
+                    .removeClass('active');
+                $(this).addClass('active');
+            });
+    });
+</script>
