@@ -85,7 +85,7 @@
             </form>
         </div>
     </div>
-    
+    {% include 'navbar.html' %}
     <div id="view" class="flex flex-col  w-screen mx-auto md:grid grid-cols-2 mx-auto gap-2 max-w-[1480px] pt-12 lg:pt-16 min-h-screen">
         <div id="save-book-id" data-book-id="{{book.id}}" style="display: none;"></div>
         {% if user.is_authenticated %}
