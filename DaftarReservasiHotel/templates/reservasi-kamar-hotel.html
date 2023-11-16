@@ -1,0 +1,147 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block meta %}
+    <title>Reservasi Kamar</title>
+{% endblock meta %}
+
+{% block content %}
+
+<div class="max-w-7xl min-h-screen mx-auto flex flex-col items-center  w-screen px-4 " >
+    <div class="flex flex-col  w-full   mt-20">
+        <div>
+            <h1 class="text-xl text-black font-bold">Reservasi Kamar</h1>
+        </div>
+    </div>
+    <div class="flex  w-full space-x-4 mt-4 ">
+        <div class="grow">
+            <label for="">Min Price</label>
+            <div class="relative">
+                <span class="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
+                  <h1>Rp</h1>
+                </span>
+                <input type="text" class=" w-full pl-10 pr-4 py-2 border-2 border-gray-700  rounded-md focus:outline-none focus:border-indigo-500" placeholder="Harga minimal">
+              </div> 
+        </div>
+        <div class="grow">
+            <label for="">Max Price</label>
+            <div class="relative">
+                <span class="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
+                  <h1>Rp</h1>
+                </span>
+                <input type="text" class="w-full pl-10 pr-4 py-2 border-2 border-gray-700  rounded-md focus:outline-none focus:border-indigo-500" placeholder="Harga maksimal">
+              </div> 
+        </div>
+
+    </div>
+    <div class="mt-4 w-full flex items-center justify-end">
+        <div class="flex px-2 py-2 bg-blue-600 items-center rounded-md">
+            <h1 class="text-white text-base">Search</h1>
+            <span class="ml-2"><i class="fas fa-search text-base text-white"></i></span>
+        </div>
+    </div>
+    <div class="mt-4 w-full ">
+        <div>
+            <h1 class="text-xl text-black font-bold">Hotel yang Cocok dengan Anda</h1>
+        </div>
+    </div>
+    <div id="hotel-not-found" class="grow  flex justify-center items-center w-full">
+        <h1>
+            Tidak ada hotel yang sesuai
+        </h1>
+    </div>
+    <div class="hidden mt-4 grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 w-full gap-y-2 gap-x-2  md:gap-y-4 md:gap-x-4">
+        <div class="hotel-card pb-4 shadow-md grow min-h-64 bg-gray-200 m-2 min-w-[150px]
+      md:max-w-[18rem] rounded-md shadow-md">
+            <img src="https://ik.imagekit.io/tvlk/apr-asset/dgXfoyh24ryQLRcGq00cIdKHRmotrWLNlvG-TxlcLxGkiDwaUSggleJNPRgIHCX6/hotel/asset/20005766-8031312bbfa8ca894893d33a9071165f.jpeg?_src=imagekit&tr=c-at_max,h-360,q-40,w-640" class="rounded-tl-md rounded-tr-md w-full aspect-[1/1]"/>
+            <div class="grow px-2">
+                <h1 class="text-lg mt-2">Hotel Horizon</h1>
+                <h1 class="text-base text-gray-700 mt-1">Cabang Los Angeles</h1>
+                <div class="mt-2 flex items-center text-base">
+                    <div class="mr-2">
+                    <span class="fas fa-star text-yellow-500"></span>
+                    <span class="fas fa-star text-yellow-500"></span>
+                    <span class="fas fa-star text-yellow-500"></span>
+                    <span class="fas fa-star text-yellow-500"></span>
+                    <span class="fas fa-star text-yellow-500"></span>
+                    </div>
+                    <div class="flex items-center">
+                        <h1 class="text-blue-600 font-bold ">9.9</h1>
+                        <span class="ml-2 font-bold"> (2)</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="hotel-card pb-4 shadow-md grow min-h-64 bg-gray-200 m-2 min-w-[150px]
+      md:max-w-[18rem] rounded-md shadow-md">
+            <img src="https://www.ahstatic.com/photos/c096_ho_00_p_1024x768.jpg" class="rounded-tl-md rounded-tr-md w-full aspect-[1/1]"/>
+            <div class="grow px-2">
+                <h1 class="text-lg mt-2">Hotel Hijau Bulan</h1>
+                <h1 class="text-base text-gray-700 mt-1">Cabang Yellow River</h1>
+                <div class="mt-2 flex items-center text-base">
+                    <div class="mr-2">
+                    <span class="fas fa-star text-yellow-500"></span>
+                    <span class="fas fa-star text-yellow-500"></span>
+                    <span class="fas fa-star text-yellow-500"></span>
+                    <span class="fas fa-star text-yellow-500"></span>
+                    <span class="fas fa-star text-yellow-500"></span>
+                    </div>
+                    <div class="flex items-center">
+                        <h1 class="text-blue-600 font-bold ">8.9</h1>
+                        <span class="ml-2 font-bold"> (210)</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="hotel-card pb-4 shadow-md grow min-h-64 bg-gray-200 m-2 min-w-[150px]
+      md:max-w-[18rem] rounded-md shadow-md">
+            <img src="https://ik.imagekit.io/tvlk/apr-asset/dgXfoyh24ryQLRcGq00cIdKHRmotrWLNlvG-TxlcLxGkiDwaUSggleJNPRgIHCX6/hotel/asset/10002262-5c5a56de1fd9c4094bade7d98a345dfd.jpeg?_src=imagekit&tr=c-at_max,h-360,q-40,w-640" class="rounded-tl-md rounded-tr-md w-full aspect-[1/1]"/>
+            <div class="grow px-2">
+                <h1 class="text-lg mt-2">Lumire Hotel</h1>
+                <h1 class="text-base text-gray-700 mt-1">Cabang Jakarta</h1>
+                <div class="mt-2 flex items-center text-base">
+                    <div class="mr-2">
+                    <span class="fas fa-star text-yellow-500"></span>
+                    <span class="fas fa-star text-yellow-500"></span>
+                    <span class="fas fa-star text-yellow-500"></span>
+                    <span class="fas fa-star text-yellow-500"></span>
+                    <span class="fas fa-star text-yellow-500"></span>
+                    </div>
+                    <div class="flex items-center">
+                        <h1 class="text-blue-600 font-bold ">8.5</h1>
+                        <span class="ml-2 font-bold"> (402)</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="hotel-card pb-4 shadow-md grow min-h-64 bg-gray-200 m-2 min-w-[150px]
+      md:max-w-[18rem] rounded-md shadow-md">
+            <img src="https://ik.imagekit.io/tvlk/apr-asset/Ixf4aptF5N2Qdfmh4fGGYhTN274kJXuNMkUAzpL5HuD9jzSxIGG5kZNhhHY-p7nw/hotel/asset/10000048-7e24564e52126ad91358765cafc24fa9.jpeg?_src=imagekit&tr=c-at_max,h-360,q-40,w-640" class="rounded-tl-md rounded-tr-md w-full aspect-[1/1]"/>
+            <div class="grow px-2">
+                <h1 class="text-lg mt-2">Sunlake</h1>
+                <h1 class="text-base text-gray-700 mt-1">Cabang Jakarta</h1>
+                <div class="mt-2 flex items-center text-base">
+                    <div class="mr-2">
+                    <span class="fas fa-star text-yellow-500"></span>
+                    <span class="fas fa-star text-yellow-500"></span>
+                    <span class="fas fa-star text-yellow-500"></span>
+                    <span class="fas fa-star text-yellow-500"></span>
+                    <span class="fas fa-star text-yellow-500"></span>
+                    </div>
+                    <div class="flex items-center">
+                        <h1 class="text-blue-600 font-bold ">8.5</h1>
+                        <span class="ml-2 font-bold"> (388)</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Tambahkan lebih banyak kartu sesuai kebutuhan -->
+      </div>
+</div>
+<script>
+    
+</script>
+
+{% endblock content %}
+    
+    
