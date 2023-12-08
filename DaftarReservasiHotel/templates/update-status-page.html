@@ -1,0 +1,33 @@
+{% extends 'base-tw.html' %}
+{% load static %}
+{% block meta %}
+    <title>Update Status Reservasi</title>
+{% endblock meta %}
+
+{% block content %}
+    <div class="flex justify-center items-center w-screen h-screen">
+        <div class="max-w-lg  my-auto mx-auto bg-white rounded-md shadow-lg p-6">
+            <h1 class="text-2xl md:text-4xl font-bold mb-4">Update Status Reservasi</h1>
+            <form action="/update-status" method="POST">
+              <div class="mb-4">
+                <label for="reservationId" class="block text-sm md:text-base font-semibold mb-2">ID Reservasi:</label>
+                <h1 class="text-base md:text-lg">a6g5fegb7htk0h86g5hute6nox7</h1>
+              </div>
+              <div class="mb-4">
+                <label for="roomNumber" class="block text-sm md:text-base font-semibold mb-2">Nomor Kamar:</label>
+                <h1 class="text-base md:text-lg">B12</h1>
+              </div>
+              <div class="mb-4">
+                <label for="status" class="block text-sm md:text-base font-semibold mb-2">Status:</label>
+                <select id="status" name="status" class="w-full border border-gray-300 rounded-md px-3 py-2">
+                  <option value="booked">Booked</option>
+                  <option value="confirmed">Confirmed</option>
+                  <option value="cancelled">Cancelled</option>
+                  <!-- Tambahkan pilihan status lain sesuai kebutuhan -->
+                </select>
+              </div>
+              <button type="submit" class="w-full bg-blue-500 text-white font-semibold py-2 rounded-md hover:bg-blue-600">UPDATE</button>
+            </form>
+          </div>
+    </div>
+{% endblock content %}

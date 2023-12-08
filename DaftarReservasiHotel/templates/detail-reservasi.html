@@ -1,0 +1,210 @@
+{% extends 'base-tw.html' %}
+{% load static %}
+{% block meta %}
+    <title>Update Status Reservasi</title>
+{% endblock meta %}
+
+{% block content %}
+<div class="w-screen min-h-screen flex flex-col pt-20 pb-1  items-center justify-center max-w-6xl mx-auto">
+    <h1 class=" w-full text-left text-2xl md:text-4xl font-bold mb-4 px-4">Detail Reservasi</h1>
+    <div class="grow  flex w-full justify-center items-start">
+        <div class="grow   px-4 grid md:grid-cols-2 gap-x-2">
+            <div>
+                <div  class="mb-4 flex flex-col w-full bg-gray-200 rounded-md  py-3 px-3">
+                    <div id="detail-kamar" class="flex flex-col w-full max-h-[16rem] overflow-y-hidden transition-all duration-300">
+                        <div class="flex w-full items-center">
+                            <h1 class="text-indigo-400 text-lg font-bold">KAMAR</h1>
+                            <div class="ml-auto">
+                                <button id="show-less-btn-kamar" class="hidden ml-2 text-sm">Show Less</button>
+                            </div>
+                        </div>
+                        <div class="flex flex-col mt-2 space-y-1 w-full ">
+                            <div class="flex  w-full ">
+                                <hr class=" border-b border-[#460C90] w-full opacity-20">
+                            </div>
+                            <h1 class="text-black text-base font-bold">ID Reservasi</h1>
+                            <p class="text-gray-600 text-sm">a6g5fegb7htk0h86g5hute6nox7</p>
+                        </div>
+                        <div class="flex flex-col mt-2 space-y-1 w-full ">
+                            <div class="flex  w-full ">
+                                <hr class=" border-b border-[#460C90] w-full opacity-20">
+                            </div>
+                            <h1 class="text-black text-base font-bold">Nomor Kamar</h1>
+                                <p class="text-gray-600 text-sm">B12</p>
+                        </div>
+                        
+            
+                        <div class="flex flex-col mt-2 space-y-1 w-full ">
+                            <div class="flex  w-full ">
+                                <hr class=" border-b border-[#460C90] w-full opacity-20">
+                            </div>
+                            <h1 class="text-black text-base font-bold">Nama Hotel</h1>
+                                <p class="text-gray-600 text-sm">
+                                    Horizon Hotel
+                                </p>
+                        </div>
+                        <div class="flex flex-col mt-2 space-y-1 w-full ">
+                            <div class="flex  w-full ">
+                                <hr class=" border-b border-[#460C90] w-full opacity-20">
+                            </div>
+                            <h1 class="text-black text-base font-bold">Cabang Hotel</h1>
+                            <p class="text-gray-600 text-sm">
+                                Cabang Los Angeles
+                            </p>
+                        </div>
+                        <div class="flex flex-col mt-2 space-y-1 w-full ">
+                            <div class="flex  w-full ">
+                                <hr class=" border-b border-[#460C90] w-full opacity-20">
+                            </div>
+                            <h1 class="text-black text-base font-bold">Tanggal</h1>
+                                <p class="text-gray-600 text-sm">04 Januari 2024</p>
+                            
+                        </div>
+                        <div class="flex flex-col mt-2 space-y-1 w-full ">
+                            <div class="flex  w-full ">
+                                <hr class=" border-b border-[#460C90] w-full opacity-20">
+                            </div>
+                            <h1 class="text-black text-base font-bold">Status</h1>
+                            <p class="text-gray-600 text-sm">Booked</p>
+                        </div>
+                    
+                    </div>
+            
+                    <div id="show-all-btn-kamar" class="w-full min-h-[2rem] hidden items-center justify-center bg-gray-300 hover:bg-gray-400 rounded-md">
+                        <h1 class="text-lg text-gray-600 "> SHOW ALL</h1>
+                    </div>
+                </div>
+            </div>
+            <div>
+                <div  class="mb-4 flex flex-col w-full bg-gray-200 rounded-md  py-3 px-3">
+                    <div id="detail-shuttle" class="flex flex-col w-full max-h-[16rem] overflow-y-hidden transition-all duration-300">
+                        <div class="flex w-full items-center">
+                            <h1 class="text-indigo-400 text-lg font-bold">SHUTTLE</h1>
+                            <div class="ml-auto">
+                                <button id="show-less-btn-shuttle" class="hidden ml-2 text-sm">Show Less</button>
+                            </div>
+                        </div>
+                        <div class="flex flex-col mt-2 space-y-1 w-full ">
+                            <div class="flex  w-full ">
+                                <hr class=" border-b border-[#460C90] w-full opacity-20">
+                            </div>
+                            <h1 class="text-black text-base font-bold">ID Reservasi</h1>
+                            <p class="text-gray-600 text-sm">a6g5fegb7htk0h86g5hute6nox7</p>
+                        </div>
+                        <div class="flex flex-col mt-2 space-y-1 w-full ">
+                            <div class="flex  w-full ">
+                                <hr class=" border-b border-[#460C90] w-full opacity-20">
+                            </div>
+                            <h1 class="text-black text-base font-bold">Nomor Kendaraan</h1>
+                                <p class="text-gray-600 text-sm">B7ZZZZ</p>
+                        </div>
+                        
+            
+                        <div class="flex flex-col mt-2 space-y-1 w-full ">
+                            <div class="flex  w-full ">
+                                <hr class=" border-b border-[#460C90] w-full opacity-20">
+                            </div>
+                            <h1 class="text-black text-base font-bold">Nomor HP Driver</h1>
+                                <p class="text-gray-600 text-sm">
+                                    0000001234
+                                </p>
+                        </div>
+                    
+                        <div class="flex flex-col mt-2 space-y-1 w-full ">
+                            <div class="flex  w-full ">
+                                <hr class=" border-b border-[#460C90] w-full opacity-20">
+                            </div>
+                            <h1 class="text-black text-base font-bold">Tanggal</h1>
+                                <p class="text-gray-600 text-sm">04 Januari 2024</p>
+                            
+                        </div>
+                    
+                    </div>
+            
+                    <div id="show-all-btn-shuttle" class="hidden w-full min-h-[2rem] hidden items-center justify-center bg-gray-300 hover:bg-gray-400 rounded-md">
+                        <h1 class="text-lg text-gray-600 "> SHOW ALL</h1>
+                    </div>
+                </div>
+            </div>
+            
+        </div>
+        
+    </div>
+    <div class="px-4 mt-4 md:mt-8 mb-4 w-full  flex items-center justify-center">
+        <button class="grow-[2] bg-blue-500 text-white font-semibold py-2 px-4 rounded-md hover:bg-blue-600 mr-2 text-base md:text-lg lg:text-xl">BUAT RESERVASI SHUTTLE</button>
+        <a href="#" class="grow-[1] bg-white hover:bg-blue-300 border-2 py-2 px-4 rounded-md text-center border-blue-500  text-blue-500 font-bold hover:underline text-base md:text-lg lg:text-xl ">BACK</a>
+      </div>
+   
+    
+</div>
+<script>
+    let showAll = false;
+    let showAllShuttle = false;
+   
+    const detailBookElement = document.getElementById('detail-kamar');
+    const showAllBtn = document.getElementById('show-all-btn-kamar');
+    const showLessBtn = document.getElementById('show-less-btn-kamar');
+    const detailShuttleElement = document.getElementById('detail-shuttle');
+    const showAllBtnShuttle = document.getElementById('show-all-btn-shuttle');
+    const showLessBtnShuttle = document.getElementById('show-less-btn-shuttle');
+    
+    window.addEventListener('load', ()=> {
+        if(detailBookElement.scrollHeight > detailBookElement.clientHeight){
+            showAllBtn.classList.remove('hidden')
+            showAllBtn.classList.add('flex')
+        }
+        
+
+        showAllBtn.addEventListener('click', () => {
+            if(!showAll){
+                showAll = true
+                detailBookElement.classList.remove('overflow-y-hidden')
+                detailBookElement.classList.remove('max-h-[16rem]')
+                showAllBtn.classList.add('hidden')
+                showLessBtn.classList.remove('hidden')
+            }
+        });
+        showLessBtn.addEventListener('click', ()=> {
+            if(showAll){
+                showAll = false;
+                detailBookElement.classList.add('overflow-y-hidden');
+                detailBookElement.classList.add('max-h-[16rem]');
+                showAllBtn.classList.remove('hidden')
+                showLessBtn.classList.add('hidden')
+            }
+        });
+
+    })
+
+    window.addEventListener('load', ()=> {
+        if(detailShuttleElement.scrollHeight > detailShuttleElement.clientHeight){
+            showAllBtnShuttle.classList.remove('hidden')
+            showAllBtnShuttle.classList.add('flex')
+        }
+        
+
+        showAllBtnShuttle.addEventListener('click', () => {
+            if(!showAllShuttle){
+                showAllShuttle = true
+                detailShuttleElement.classList.remove('overflow-y-hidden')
+                detailShuttleElement.classList.remove('max-h-[16rem]')
+                showAllBtnShuttle.classList.add('hidden')
+                showLessBtnShuttle.classList.remove('hidden')
+            }
+        });
+        showLessBtnShuttle.addEventListener('click', ()=> {
+            if(showAllShuttle){
+                showAllShuttle = false;
+                detailShuttleElement.classList.add('overflow-y-hidden');
+                detailShuttleElement.classList.add('max-h-[16rem]');
+                showAllBtnShuttle.classList.remove('hidden')
+                showLessBtnShuttle.classList.add('hidden')
+            }
+        });
+
+    })
+
+    
+</script>
+
+{% endblock content %}
