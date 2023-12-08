@@ -30,18 +30,16 @@ ALLOWED_HOSTS = ['*']
 # Application definition
 
 INSTALLED_APPS = [
-    'channels',
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
     'django.contrib.sessions',
     'django.contrib.messages',
-    'daphne',
     'django.contrib.staticfiles',
     'corsheaders',
     'rest_framework',
     'rest_framework.authtoken',
-    'DaftarReservasiHotel',
+    'hotels_and_reviews',
     'authentication',
 ]
 
@@ -56,17 +54,15 @@ MIDDLEWARE = [
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
 ]
 
-REST_FRAMEWORK = {
-    'DEFAULT_AUTHENTICATION_CLASSES': [
-        'rest_framework.authentication.TokenAuthentication',
-    ],
-    'DEFAULT_PERMISSION_CLASSES': [
-        'rest_framework.permissions.IsAuthenticated',
-    ],
-}
+
 CORS_ALLOW_ALL_ORIGINS = True # If this is used then `CORS_ALLOWED_ORIGINS` will not have any effect
 CORS_ALLOW_CREDENTIALS = True
 CORS_ALLOW_ALL_HEADERS = True
+
+SESSION_ENGINE = 'django.contrib.sessions.backends.file'
+
+# Pengaturan untuk tempat penyimpanan file sesi
+SESSION_FILE_PATH = os.path.join(BASE_DIR,'temp/sessions')
 
 ROOT_URLCONF = 'sistel.urls'
 
@@ -87,19 +83,7 @@ TEMPLATES = [
 ]
 
 WSGI_APPLICATION = 'sistel.wsgi.application'
-ASGI_APPLICATION = 'sistel.asgi.application' 
-
-
-# Database
-# https://docs.djangoproject.com/en/4.2/ref/settings/#databases
-# nanti diganti
-
-DATABASES = {
-    'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': BASE_DIR / 'db.sqlite3',
-    }
-}
+#ASGI_APPLICATION = 'sistel.asgi.application' 
 
 
 # Password validation

@@ -1,188 +1,66 @@
-{% extends 'base.html'%}
+{% extends 'base-tw.html' %}
 {% load static %}
 
 {% block meta %}
-<title>SISTEL | LOGIN </title>
-
+<title>Register</title>
 {% endblock meta %}
 
 {% block content %}
-
-<main>
-    <!-- P<main>
-     Pills navs -->
-  
-
-        <div class="d-flex vh-60 mx-auto justify-content-center align-items-center">
-            <div class="col-md-4 p-5 shadow-sm border rounded-5 border-primary">
-                <h1 class="text-center mb-4 text-primary">Register</h1>
-                <div class="mb-5">
-                    <nav class="nav nav-pills flex-column flex-sm-row" id="nav-member">
-                        <a class="flex-sm-fill text-sm-center nav-link current" aria-current="page"
-                            href="#form-customer">Customer</a>
-                        <a class="flex-sm-fill text-sm-center nav-link" href="#form-Hotel">Hotel</a>
-                    </nav>
-                </div>
-
-                {% if messages %}
-                <!-- Modal -->
-                <div class="modal fade" id="modal-message" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="exampleModalLabel">
-                    <div class="modal-dialog modal-dialog-centered">
-                    <div class="modal-content">
-                        <div class="modal-header ">
-                        <h2 class="modal-title text-center mx-2 fs-5" id="exampleModalToggleLabel2">Error</h2>
-                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                        </div>
-                        <div class="modal-body text-center">
-                            <p class="text-xl my-2 " style="color:black">{{ messages }}</p>
-                        
-                        </div>
-                    </div>
-                    </div>
-                </div>
-                {% endif %}
-                
-               
-                <!-- FORM CUSTOMER -->
-                <form id="form-customer" method="POST" action="{% url 'authentication:register' %}">
-                    {%csrf_token%}
-                    <div class="mb-3">
-                        <label for="inputEmail" class="form-label">Email</label>
-                        <input type="email" class="form-control border border-primary" id="email" name="email" required>
-                    </div>
-                    <div class="mb-3">
-                        <label for="inputPassword" class="form-label">Password</label>
-                        <input type="password" class="form-control border border-primary" id="password" name="password" required>
-                    </div>
-                    <div class="mb-3">
-                        <label for="inputFName" class="form-label">Nama Depan</label>
-                        <input type="text" class="form-control border border-primary" name="fname" id="fname" required>
-                    </div>
-                    <div class="mb-3">
-                        <label for="inputLName" class="form-label">Nama Belakang</label>
-                        <input type="text" class="form-control border border-primary" name="lname" id="lname" required>
-                    </div>
-                    <div class="mb-3">
-                        <label for="inputNoHP" class="form-label">Nomor HP</label>
-                        <input type="number" class="form-control border border-primary" id="noHP" name="noHP" required>
-                    </div>
-                    <div class="mb-3">
-                        <label for="inputNIK" class="form-label">NIK</label>
-                        <input type="number" class="form-control border border-primary" id="nik" name="nik" required>
-                    </div>
-                    <div class="d-grid mt-5">
-                        <button class="btn btn-primary" type="submit" name="submitCustomer"  data-bs-toggle="modal" data-bs-target="#modal-message">Daftar</button>
-                    </div>
-                </form>
-
-                <!-- FORM HOTEL -->
-                <form id="form-hotel" method="POST" action="{% url 'authentication:register' %}">
-                {%csrf_token%}
-                    <div class="mb-3">
-                        <label for="inputEmail" class="form-label">Email</label>
-                        <input type="email" class="form-control border border-primary" id="email" name="email" required>
-                    </div>
-                    <div class="mb-3">
-                        <label for="inputPassword" class="form-label">Password</label>
-                        <input type="password" class="form-control border border-primary" id="password" name="password" required>
-                    </div>
-                    <div class="mb-3">
-                        <label for="inputFNama" class="form-label">Nama Depan Pemilik Hotel</label>
-                        <input type="text" class="form-control border border-primary" id="fnama" name="fnama" required>
-                    </div>
-                    <div class="mb-3">
-                        <label for="inputLNama" class="form-label">Nama Belakang Pemilik Hotel</label>
-                        <input type="text" class="form-control border border-primary" id="lnama" name="lnama" required>
-                    </div>
-                    <div class="mb-3">
-                        <label for="inputNoHP" class="form-label">Nomor HP Pemilik Hotel</label>
-                        <input type="number" class="form-control border border-primary" id="noHP" name="noHP" required>
-                    </div>
-                    <div class="mb-3">
-                        <label for="inputNoIzin" class="form-label">Nomor Izin Usaha</label>
-                        <input type="number" class="form-control border border-primary" id="noIzin" name="noIzin" required>
-                    </div>
-                    <div class="mb-3">
-                        <label for="inputNamaHotel" class="form-label">Nama Hotel</label>
-                        <input type="text" class="form-control border border-primary" id="namaHotel" name="namaHotel" required>
-                    </div>
-                    <div class="mb-3">
-                        <label for="inputHBranch" class="form-label">Cabang Hotel</label>
-                        <input type="text" class="form-control border border-primary" id="hBranch" name="hBranch" required>
-                    </div>
-                    <div class="mb-3">
-                        <label for="labelAlamatHotel" class="form-label">Alamat Hotel</label>
-                    </div>
-                    <div class="mb-3">
-                        <label for="inputJalan" class="form-label">Nama Jalan</label>
-                        <input type="text" class="form-control border border-primary" id="jalan" name="jalan" required>
-                    </div>
-                    <div class="mb-3">
-                        <label for="inputKecamatan" class="form-label">Kecamatan</label>
-                        <input type="text" class="form-control border border-primary" id="kecamatan" name="kecamatan" required>
-                    </div>
-                    <div class="mb-3">
-                        <label for="inputKota" class="form-label">Kota</label>
-                        <input type="text" class="form-control border border-primary" id="kota" name="kota" required>
-                    </div>
-                    <div class="mb-3">
-                        <label for="inputProvinsi" class="form-label">Provinsi</label>
-                        <input type="text" class="form-control border border-primary" id="provinsi" name="provinsi" required>
-                    </div>
-                    <div class="d-grid mt-5">
-                        <button class="btn btn-primary" type="submit" name="submitHotel"  data-bs-toggle="modal" data-bs-target="#modal-message">Daftar</button>
-                    </div>
-                </form>
+<div class="flex flex-col w-full min-h-screen pt-6 md:pt-20 items-center justify-center px-4 py-2">
+    <div class="mb-1 md:mb-4">
+        <h1 class="text-2xl md:text-3xl text-blue-600 font-bold text-center">Sistem Manajemen Hotel (SISTEL)</h1>
+    </div>
+    <div class="p-8 w-96 md:min-w-[36rem] lg:min-w-[42rem] max-w-[90%] min-w-[12rem]">
+        <h1 class="text-2xl font-semibold mb-4">Registrasi</h1>
+        <form action="" method="post" class="grid grid-cols-2 gap-x-4 space-y-3 md:space-y-8">
+            {% csrf_token %}
+            <div class="col-span-2 md:col-span-1">
+                <label for="email" class="block mb-1">Email</label>
+                <input type="email" name="email" id="email" class="w-full border-gray-300 bg-blue-100 rounded focus:outline-none focus:border-blue-500 px-4 py-2" placeholder="Masukkan email">
+            </div>
+            <div class="col-span-2 md:col-span-1">
+                <label for="nik" class="block mb-1">NIK</label>
+                <input type="text" name="nik" id="nik" class="w-full border-gray-300 bg-blue-100 rounded focus:outline-none focus:border-blue-500 px-4 py-2" placeholder="Masukkan NIK">
+            </div>
+            <div class="col-span-2 md:col-span-1">
+                <label for="password" class="block mb-1">Password</label>
+                <input type="password" name="password" id="password" class="w-full border-gray-300 bg-blue-100 rounded focus:outline-none focus:border-blue-500 px-4 py-2" placeholder="Masukkan password">
+            </div>
+            <div class="col-span-2 md:col-span-1">
+                <label for="confirm_password" class="block mb-1">Konfirmasi Password</label>
+                <input type="password" name="confirm_password" id="confirm_password" class="w-full border-gray-300 bg-blue-100 rounded focus:outline-none focus:border-blue-500 px-4 py-2" placeholder="Konfirmasi password">
+            </div>
+            <div class="col-span-2 md:col-span-1">
+                <label for="fname" class="block mb-1">Nama Depan</label>
+                <input type="text" name="fname" id="fname" class="w-full border-gray-300 bg-blue-100 rounded focus:outline-none focus:border-blue-500 px-4 py-2" placeholder="Masukkan nama depan">
+            </div>
+            <div class="col-span-2 md:col-span-1">
+                <label for="lname" class="block mb-1">Nama Belakang</label>
+                <input type="text" name="lname" id="lname" class="w-full border-gray-300 bg-blue-100 rounded focus:outline-none focus:border-blue-500 px-4 py-2" placeholder="Masukkan nama belakang">
+            </div>
+            <div class="col-span-2 md:col-span-1">
+                <label for="phone_num" class="block mb-1">Nomor Telepon</label>
+                <input type="tel" name="phone_num" id="phone_num" pattern="[0-9]*" title="Hanya input digit/angka diizinkan" class="w-full border-gray-300 bg-blue-100 rounded focus:outline-none focus:border-blue-500 px-4 py-2" placeholder="Masukkan nomor telepon">
+            </div>
+            
+            <div class="flex w-full col-span-2">
+                <button type="submit" class="mt-4 md:mt-0 w-full  bg-blue-500 text-white rounded py-2 px-4 hover:bg-blue-600 transition duration-300">Register</button>
+            </div>
+        </form>
+        <div class="mt-2 w-full flex items-center justify-end">
+            <div class="px-2 py-2 flex items-center justify-center">
+                <span> Sudah punya akun? <a href="/login/" class="text-base text-blue-500">Login</a> </span>
             </div>
         </div>
-
-    <!-- Pills content -->
-</main>
+        {% if messages %}
+            {% for message in messages %}
+                <p class="text-red-500">{{ message }}</p>
+            {% endfor %}
+        {% endif %}
+    </div>
+</div>
 
 <script>
-    // Get the container element
-    var btnContainer = document.getElementById("nav-member");
-
-    // Get all buttons with class="btn" inside the container
-    var btns = btnContainer.getElementsByClassName("nav-link");
-
-    // Loop through the buttons and add the active class to the current/clicked button
-    for (var i = 0; i < btns.length; i++) {
-        btns[i].addEventListener("click", function () {
-            var current = document.getElementsByClassName("current");
-            current[0].className = current[0].className.replace("current", "");
-            this.className += " current";
-        });
-
-    }
+    // Example starter JavaScript for disabling form submissions if there are invalid fields
 </script>
-
-<style>
-    form {
-        display: none;
-    }
-
-    form:target {
-        display: block;
-    }
-
-    .current {
-        background: #bfe2e2 !important;
-        background-color: #bfc4e2 !important;
-        color: #4c8aa4;
-    }
-
-    .d-flex {
-    margin-top: 20px;
-    margin-bottom: 20px;
-    }
-
-
-</style>
-
-
-<!-- Pills navs -->
-
-<!-- Pills content -->
-<!-- </main> -->
 {% endblock content %}
