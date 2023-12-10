@@ -6,7 +6,9 @@
 
 {% block content %}
 {% include 'nav.html' with is_hotel=is_hotel %}
-<div class="max-w-7xl min-h-screen mx-auto flex flex-col items-center  w-screen px-4 " >
+<div class="max-w-7xl mt-16 min-h-screen mx-auto flex flex-col items-center  w-screen px-4 " >
+    
+    {% if is_authorized %}
     <div class="flex flex-col  w-full   mt-20">
         <div>
             <h1 class="text-xl text-black font-bold">{{username}}, Ayo Cari Hotel yang Cocok dengan Kamu</h1>
@@ -49,6 +51,7 @@
     <div id="hotel-cards-container" class="mt-4 grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 w-full gap-y-2 gap-x-2  md:gap-y-4 md:gap-x-4">
         
         {% for hotel in hotels %}
+        <a href="/hotels/detail/{{hotel.hotel_name}}/{{hotel.hotel_branch}}">
         <div class="hotel-card pb-4 shadow-md grow min-h-64 bg-gray-200 m-2 min-w-[150px]
         md:max-w-[18rem] rounded-md shadow-md">
               
@@ -70,6 +73,7 @@
                   </div>
               </div>
           </div>
+        </a>
         {% endfor %}
         <!-- Tambahkan lebih banyak kartu sesuai kebutuhan -->
       </div>
@@ -81,9 +85,23 @@
         </h1>
     </div>
     {% endif %}
+    {% else %}
+        <div class="my-auto w-full flex flex-col justify-center items-center px-4 space-y-4">
+            <h1 class="text-xl text-center font-semibold"> Maaf Kamu Tidak Bisa Mengakses Halaman Ini</h1>
+            <h1 class="text-lg text-center">Role kamu adalah hotel dan kami tidak mengizinkanmu mengakses halaman ini. Silahkan kembali.</h1>
+            <div id="back-btn" class="bg-slate-900 px-4 py-2 flex justify-center items-center rounded-md text-base">
+                <h1 class="text-white">Kembali</h1>
+            </div>
+        </div>
+    {% endif %}
+        
+    
 </div>
 <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/toastify-js/src/toastify.min.css">
 <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/toastify-js"></script> 
+
+
+{% if is_authorized %}
 <script>
     const hotelSearchBtn = document.getElementById("hotel-search-btn");
     const max_price_textfield = document.getElementById("room-max-price-textfield");
@@ -111,7 +129,7 @@
                 starRatingString += '<span class="fas fa-star text-yellow-500"></span>';
             }
             htmlString+=`
-            <div class="hotel-card  shadow-md grow min-h-64 bg-gray-200 m-2 min-w-[150px]
+            <a href="/hotels/detail/${hotel.hotel_name}/${hotel.hotel_branch}"><div class="hotel-card  shadow-md grow min-h-64 bg-gray-200 m-2 min-w-[150px]
         md:max-w-[18rem] rounded-md shadow-md">
               
               <div class="grow px-2">
@@ -132,6 +150,7 @@
                  <h1 class="text-base text-white">Min. Rp${hotel.min_price}</h1>
                 </div>
           </div>
+        </a>
             `
         }
         hotelCardsContainer.innerHTML = htmlString;
@@ -190,6 +209,22 @@
         }
     })
 </script>
+{% endif %}
+
+
+{% if not is_authorized %}
+    <script>
+        function goBack() {
+            window.history.back();
+        }
+        document.getElementById('back-btn').addEventListener('click',()=>{
+            goBack()
+        })
+    </script>
+{% endif %}
+    
+    
+
 
 {% endblock content %}
     

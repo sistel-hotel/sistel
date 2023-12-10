@@ -33,26 +33,77 @@ def logout_with_postgres(request):
 
 def register_with_postgres(request):
     if request.method == 'POST':
+        # SAMA ---------------------------
         email = request.POST.get('email')
         password = request.POST.get('password')
         confirm_password = request.POST.get('confirm_password')
         fname = request.POST.get('fname')
         lname = request.POST.get('lname')
-        nik = request.POST.get('nik')
         phone_num = request.POST.get('phone_num')
-        if not all([email.strip(), password.strip(), confirm_password.strip(), fname.strip(), lname.strip(), nik.strip(), phone_num.strip()]):
-            messages.error(request, 'Mohon lengkapi field yang kosong.')
+        # SAMA -------------------------------------
+        # HANYA CUSTOMER ---------------------------
+        nik = request.POST.get('nik')
+        # HANYA HOTEL ------------------------------
+        hotel_name = request.POST.get('hotel_name')
+        hotel_branch = request.POST.get('hotel_branch')
+        nib = request.POST.get('nib')
+        star = request.POST.get('star')
+        street = request.POST.get('street')
+        district = request.POST.get('district')
+        city = request.POST.get('city')
+        province = request.POST.get('province')
+        description = request.POST.get('description')
+        min_checkout = request.POST.get('min_checkout')
+        max_checkout = request.POST.get('max_checkout')
+        print(hotel_name)
+
+        # CEK REGISTER CUSTOMER ATAU HOTEL
+        is_customer = True if nik is not None else False
+
+        # CEK CUSTOMER
+        if is_customer and not all([email.strip(), password.strip(), confirm_password.strip(), fname.strip(), lname.strip(), nik.strip(), phone_num.strip()]):
+            messages.error(request, 'Mohon lengkapi field yang kosong dalam mendaftarkan customer.')
+        # CEK HOTEL
+        elif not is_customer and not all([email.strip(), password.strip(),
+         confirm_password.strip(), fname.strip(), lname.strip(), 
+           hotel_name.strip(), hotel_branch.strip(), nib.strip(), star, 
+           street.strip(),district.strip(),city.strip(), 
+           province.strip(), description.strip(),  
+           min_checkout.strip(), max_checkout.strip(), phone_num.strip()]):
+            messages.error(request, 'Mohon lengkapi field yang kosong dalam mendaftarkan hotel.')
+        # CEK BINTANG
+        elif not is_customer and not star.isdigit():
+            messages.error(request, 'Maaf, bintang hotel harus bilangan bulat.')
+        # CEK RANGE BINTANG
+        elif not is_customer and (float(star) < 1 or float(star) > 5):
+            messages.error(request, 'Maaf, bintang hotel harus ada di range 1 sampai 5.')
+        # CEK PASSWORD
         elif password != confirm_password:
             messages.error(request, 'Password dan konfirmasi password tidak cocok.')
         else:
-            query= f"""
+            if is_customer:
+                query= f"""
 
-            INSERT INTO sistel.user  (email, password, fname, lname) VALUES ('{email}','{password}', '{fname}', '{lname}');
-            INSERT INTO reservation_actor (email, phonenum) VALUES ('{email}','{phone_num}');
-            INSERT INTO customer  (email, nik) VALUES ('{email}','{nik}')
-            RETURNING email;
-            
-            """
+                INSERT INTO sistel.user  (email, password, fname, lname) VALUES ('{email}','{password}', '{fname}', '{lname}');
+                INSERT INTO reservation_actor (email, phonenum) VALUES ('{email}','{phone_num}');
+                INSERT INTO customer  (email, nik) VALUES ('{email}','{nik}')
+                RETURNING email;
+                
+                """
+            else:
+                query = f"""
+                INSERT INTO sistel.user  (email, password, fname, lname) VALUES ('{email}','{password}', '{fname}', '{lname}');
+                INSERT INTO reservation_actor (email, phonenum) VALUES ('{email}','{phone_num}');
+                INSERT INTO hotel 
+                (email, hotel_name, hotel_branch, nib, star, street, district, city,
+                  province, description, max_checkout, min_checkout) VALUES (
+                    '{email}', '{hotel_name}', '{hotel_branch}', '{nib}',
+                      {star}, '{street}', '{district}', '{city}', '{province}',
+                        '{description}', '{max_checkout}', '{min_checkout}'
+                  )
+                RETURNING email;
+
+                """
             try:
                 execute_sql_query(query=query)
                 return HttpResponseRedirect('/login/') 
