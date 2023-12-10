@@ -10,7 +10,7 @@ BEGIN
         RAISE EXCEPTION 'Rating is not valid';
     END IF;
     -- Menghitung total rating yang ada untuk hotel tertentu
-    SELECT SUM(rating), COUNT(*) INTO total_rating, count_ratings
+    SELECT COALESCE(SUM(rating), 0), COALESCE(COUNT(*), 0) INTO total_rating, count_ratings
     FROM sistel.reviews
     WHERE hotel_name = NEW.hotel_name
     AND hotel_branch = NEW.hotel_branch;

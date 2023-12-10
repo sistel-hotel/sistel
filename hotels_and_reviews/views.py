@@ -50,9 +50,9 @@ def daftar_hotel(request):
     
     query = """
         SELECT DISTINCT hotel.hotel_name, hotel.hotel_branch, hotel.rating, hotel.star,
-        COUNT(DISTINCT reviews.id) from hotel LEFT JOIN reviews on hotel.hotel_name = reviews.hotel_name 
+        COUNT(DISTINCT reviews.id) AS jumlah_review from hotel LEFT JOIN reviews on hotel.hotel_name = reviews.hotel_name 
         and hotel.hotel_branch = reviews.hotel_branch   
-        GROUP BY hotel.hotel_name, hotel.hotel_branch, hotel.rating, hotel.star ORDER BY hotel.rating desc, hotel.star desc;
+        GROUP BY hotel.hotel_name, hotel.hotel_branch, hotel.rating, hotel.star ORDER BY hotel.rating desc, hotel.star desc, jumlah_review desc;
     """
     if user_data['is_hotel'] == True:
         is_authorized = False
@@ -186,12 +186,5 @@ def detail_hotel(request, nama_hotel, nama_cabang_hotel):
     context['available_rooms'] = list(context['available_rooms'].values())  
     #context['available_rooms'] = []
     print(context['available_rooms'])  
-    return render(request, 'detail-hotel.html',context=context)
+    return render(request, 'detail-hotel-and-reviews.html',context=context)
 
-def daftar_reservasi_kamar(request):
-   
-    return render(request, 'daftar-reservasi-kamar.html')
-def update_status_reservasi(request):
-    return render(request, "update-status-page.html")
-def detail_reservasi(request):
-    return render(request, "detail-reservasi.html")

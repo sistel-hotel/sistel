@@ -27,7 +27,7 @@ BEGIN
         RAISE EXCEPTION 'Rating is not valid';
     END IF;
     -- Menghitung total rating yang ada untuk hotel tertentu
-    SELECT SUM(rating), COUNT(*) INTO total_rating, count_ratings
+    SELECT COALESCE(SUM(rating), 0), COALESCE(COUNT(*), 0) INTO total_rating, count_ratings
     FROM sistel.reviews
     WHERE hotel_name = NEW.hotel_name
     AND hotel_branch = NEW.hotel_branch;
@@ -50,6 +50,7 @@ CREATE TRIGGER rating_trigger
 BEFORE INSERT ON sistel.reviews
 FOR EACH ROW
 EXECUTE FUNCTION insert_and_update_rating();
+
 """)
 
 # Commit perubahan ke database
