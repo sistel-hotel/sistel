@@ -20,7 +20,7 @@ def show_register(request):
 def show_login(request):
     return render(request, "login.html")
 
-
+@csrf_exempt
 def logout_with_postgres(request):
     # Hapus data sesi pengguna
     if 'user_data' in request.session:
@@ -31,6 +31,7 @@ def logout_with_postgres(request):
     # Redirect ke halaman login atau halaman lain yang sesuai
     return redirect('/login/') 
 
+@csrf_exempt
 def register_with_postgres(request):
     if request.method == 'POST':
         # SAMA ---------------------------
@@ -113,6 +114,7 @@ def register_with_postgres(request):
                 messages.error(request, f'{error}')
     return render(request,"register.html")
 
+@csrf_exempt
 def login_with_postgres(request):
     if request.method == 'POST':
         email = request.POST.get('email')
