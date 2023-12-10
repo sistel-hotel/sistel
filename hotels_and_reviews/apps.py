@@ -3,4 +3,4 @@ from django.apps import AppConfig
 
 class DaftarreservasihotelConfig(AppConfig):
     default_auto_field = 'django.db.models.BigAutoField'
-    name = 'DaftarReservasiHotel'
+    name = 'hotels_and_reviews'
