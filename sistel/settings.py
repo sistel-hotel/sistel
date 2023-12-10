@@ -28,7 +28,10 @@ SECRET_KEY = 'django-insecure-0kz_(g)a$(=(^^nqwh+*0@)+f0yf3dep1+h3#)$*#r#*86q1r=
 DEBUG = True
 ALLOWED_HOSTS = ['*']
 # Application definition
-
+CSRF_TRUSTED_ORIGINS = [
+    'https://sistel-production.up.railway.app'
+    'https://sistel.isacitra.com'
+]
 INSTALLED_APPS = [
     'django.contrib.admin',
     'django.contrib.auth',

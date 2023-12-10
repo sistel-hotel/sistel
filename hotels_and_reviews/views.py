@@ -40,6 +40,7 @@ def filter_hotel(request):
 
 
 #--------------------------------------------- selesai------------------------------------------------------------------
+@csrf_exempt
 def daftar_hotel(request):
     user_data = request.session.get('user_data')  # Mendapatkan data sesi 'user_data'
     is_authorized = True
@@ -77,6 +78,7 @@ def daftar_hotel(request):
         'is_hotel':user_data['is_hotel']
     }
     return render(request, 'daftar-hotel.html',context)
+@csrf_exempt
 def detail_hotel(request, nama_hotel, nama_cabang_hotel):
     user_data = request.session.get('user_data')  # Mendapatkan data sesi 'user_data'
     is_authorized = True
