@@ -1,0 +1,80 @@
+{% extends 'base-tw.html' %}
+{% load static %}
+{% block meta %}
+    <title>Reservasi Kamar</title>
+{% endblock meta %}
+
+{% block content %}
+{% include 'nav.html' with is_hotel=is_hotel %}
+<div class="max-w-7xl mt-16 min-h-screen mx-auto flex flex-col items-center  w-screen px-4 " >   
+
+    <div class="container mx-auto mt-8 p-6 bg-gray-100 rounded-lg shadow-md">
+        <h1 class="text-3xl font-bold mb-6 text-blue-700">Dashboard Pengguna</h1>
+    
+        <div class="grid grid-cols-1 gap-8">
+            <!-- Profile Information Card -->
+            <div class="bg-white p-6 rounded-lg shadow-md">
+                <h2 class="text-xl font-bold mb-4 text-gray-800">Profile Information</h2>
+                <div class="mb-4">
+                    <span class="block text-sm text-gray-600">First Name:</span>
+                    <span class="text-lg text-gray-800 font-semibold">{{ user_data.fname }}</span>
+                </div>
+                <div class="mb-4">
+                    <span class="block text-sm text-gray-600">Last Name:</span>
+                    <span class="text-lg text-gray-800 font-semibold">{{ user_data.lname }}</span>
+                </div>
+                <div class="mb-4">
+                    <span class="block text-sm text-gray-600">Phone Number:</span>
+                    <span class="text-lg text-gray-800 font-semibold">{% if user_data.phone %} {{user_data.phone}}  {% else %} Not Set {% endif %}</span>
+                </div>
+                <div class="mb-4">
+                    <span class="block text-sm text-gray-600">Email:</span>
+                    <span class="text-lg text-gray-800 font-semibold">{{ user_data.email }}</span>
+                </div>
+                <div class="mb-4">
+                    <span class="block text-sm text-gray-600">NIK:</span>
+                    <span class="text-lg text-gray-800 font-semibold">{% if user_data.nik %} {{user_data.nik}}  {% else %} Not Set {% endif %}</span>
+                </div>
+            </div>
+    
+            <!-- Additional Information Card -->
+            <div class="bg-white p-6 rounded-lg shadow-md">
+                <h2 class="text-xl font-bold mb-4 text-gray-800">Recent Activity</h2>
+                <!-- Add widgets or information about recent activity here -->
+            </div>
+    
+            <!-- Notification Card -->
+            <div class="bg-white p-6 rounded-lg shadow-md">
+                <h2 class="text-xl font-bold mb-4 text-gray-800">Notifications</h2>
+                <!-- Add notification widgets or information here -->
+            </div>
+        </div>
+    </div>
+    
+        
+    
+</div>
+<link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/toastify-js/src/toastify.min.css">
+<script type="text/javascript" src="https://cdn.jsdelivr.net/npm/toastify-js"></script> 
+
+
+{% if not is_authorized %}
+    <script>
+        function showInactiveStatusAlert() {
+            alert("Complaint submission is disabled for inactive reservations!");
+        }
+        function goBack() {
+            window.history.back();
+        }
+        document.getElementById('back-btn').addEventListener('click',()=>{
+            goBack()
+        })
+    </script>
+{% endif %}
+    
+    
+
+
+{% endblock content %}
+    
+    

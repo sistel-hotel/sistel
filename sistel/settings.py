@@ -28,21 +28,24 @@ SECRET_KEY = 'django-insecure-0kz_(g)a$(=(^^nqwh+*0@)+f0yf3dep1+h3#)$*#r#*86q1r=
 DEBUG = True
 ALLOWED_HOSTS = ['*']
 # Application definition
-
+CSRF_TRUSTED_ORIGINS = [
+    'https://sistel-production.up.railway.app'
+    'https://sistel.isacitra.com'
+]
 INSTALLED_APPS = [
-    'channels',
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
     'django.contrib.sessions',
     'django.contrib.messages',
-    'daphne',
     'django.contrib.staticfiles',
     'corsheaders',
     'rest_framework',
     'rest_framework.authtoken',
-    'DaftarReservasiHotel'
+    'hotels_and_reviews',
+    'hotel',
     'authentication',
+    'reservasi',
 ]
 
 MIDDLEWARE = [
@@ -56,17 +59,15 @@ MIDDLEWARE = [
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
 ]
 
-REST_FRAMEWORK = {
-    'DEFAULT_AUTHENTICATION_CLASSES': [
-        'rest_framework.authentication.TokenAuthentication',
-    ],
-    'DEFAULT_PERMISSION_CLASSES': [
-        'rest_framework.permissions.IsAuthenticated',
-    ],
-}
+
 CORS_ALLOW_ALL_ORIGINS = True # If this is used then `CORS_ALLOWED_ORIGINS` will not have any effect
 CORS_ALLOW_CREDENTIALS = True
 CORS_ALLOW_ALL_HEADERS = True
+
+SESSION_ENGINE = 'django.contrib.sessions.backends.file'
+
+# Pengaturan untuk tempat penyimpanan file sesi
+SESSION_FILE_PATH = os.path.join(BASE_DIR,'temp/sessions')
 
 ROOT_URLCONF = 'sistel.urls'
 
@@ -74,7 +75,6 @@ TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
         'DIRS': [os.path.join(BASE_DIR, 'templates')],
-        'DIRS': [os.path.join(SETTINGS_PATH), 'templates'],
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [
@@ -88,19 +88,20 @@ TEMPLATES = [
 ]
 
 WSGI_APPLICATION = 'sistel.wsgi.application'
-ASGI_APPLICATION = 'sistel.asgi.application' 
+#ASGI_APPLICATION = 'sistel.asgi.application' 
 
-
-# Database
-# https://docs.djangoproject.com/en/4.2/ref/settings/#databases
-# nanti diganti
-
+#tapi tidak dipakai dengan orm django
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': BASE_DIR / 'db.sqlite3',
+        'ENGINE': 'django.db.backends.postgresql', 
+        'NAME': 'sistelproject_dayablewhy',                   
+        'USER': 'sistelproject_dayablewhy',                   
+        'PASSWORD': '15eaebb5beb4f3e1c03e5b1e708da41579aaef3f',           
+        'HOST': 'eum.h.filess.io',                       
+        'PORT': '5432',                            
     }
 }
+
 
 
 # Password validation

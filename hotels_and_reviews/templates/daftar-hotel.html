@@ -1,0 +1,231 @@
+{% extends 'base-tw.html' %}
+{% load static %}
+{% block meta %}
+    <title>Reservasi Kamar</title>
+{% endblock meta %}
+
+{% block content %}
+{% include 'nav.html' with is_hotel=is_hotel %}
+<div class="max-w-7xl mt-16 min-h-screen mx-auto flex flex-col items-center  w-screen px-4 " >
+    
+    {% if is_authorized %}
+    <div class="flex flex-col  w-full   mt-20">
+        <div>
+            <h1 class="text-xl text-black font-bold">{{username}}, Ayo Cari Hotel yang Cocok dengan Kamu</h1>
+        </div>
+    </div>
+    <div class="flex  w-full space-x-4 mt-4 ">
+        <div class="grow">
+            <label for="">Min Price</label>
+            <div class="relative">
+                <span class="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
+                  <h1>Rp</h1>
+                </span>
+                <input id="room-min-price-textfield" type="number" class=" w-full pl-10 pr-4 py-2 border-2 border-gray-700  rounded-md focus:outline-none focus:border-indigo-500" placeholder="Harga minimal">
+              </div> 
+        </div>
+        <div class="grow">
+            <label for="">Max Price</label>
+            <div class="relative">
+                <span class="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
+                  <h1>Rp</h1>
+                </span>
+                <input id="room-max-price-textfield" type="number" class="w-full pl-10 pr-4 py-2 border-2 border-gray-700  rounded-md focus:outline-none focus:border-indigo-500" placeholder="Harga maksimal">
+              </div> 
+        </div>
+
+    </div>
+    <div class="mt-4 w-full flex items-center justify-end">
+        <div id="hotel-search-btn" class="flex px-2 py-2 bg-blue-600 items-center rounded-md">
+            <h1 class="text-white text-base">Search</h1>
+            <span class="ml-2"><i class="fas fa-search text-base text-white"></i></span>
+        </div>
+    </div>
+    <div class="mt-4 w-full ">
+        <div>
+            <h1 id="hotel-search-result-text" class="text-xl text-black font-bold">Rekomendasi Hotel untuk Kamu</h1>
+        </div>
+    </div>
+    
+    {% if hotels|length > 0 %}
+    <div id="hotel-cards-container" class="mt-4 grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 w-full gap-y-2 gap-x-2  md:gap-y-4 md:gap-x-4">
+        
+        {% for hotel in hotels %}
+        <a href="/hotels/detail/{{hotel.hotel_name}}/{{hotel.hotel_branch}}">
+        <div class="hotel-card pb-4 shadow-md grow min-h-64 bg-gray-200 m-2 min-w-[150px]
+        md:max-w-[18rem] rounded-md shadow-md">
+              
+              <div class="grow px-2">
+                  <h1 class="text-lg mt-2">{{hotel.hotel_name}}</h1>
+                  <h1 class="text-base text-gray-700 mt-1">Cabang {{hotel.hotel_branch}}</h1>
+                  <div class="mt-2 flex items-center text-base">
+                    <div class="mr-auto">
+                        {% for _ in hotel.filled_stars %}
+                            <span class="fas fa-star text-yellow-500"></span>
+                        {% endfor %}
+                    
+                    </div>
+                      <div class="flex items-center">
+                          <span class="mr-1 fas fa-star text-blue-600"></span>
+                          <h1 class="text-blue-600 font-bold ">{{hotel.hotel_rating}}</h1>
+                          <span class="ml-2 font-bold"> ({{hotel.reviews_count}})</span>
+                      </div>
+                  </div>
+              </div>
+          </div>
+        </a>
+        {% endfor %}
+        <!-- Tambahkan lebih banyak kartu sesuai kebutuhan -->
+      </div>
+    </div>
+    {% else %}
+    <div id="hotel-cards-container" class="hidden grow  flex justify-center items-center w-full">
+        <h1>
+            Tidak ada hotel yang sesuai
+        </h1>
+    </div>
+    {% endif %}
+    {% else %}
+        <div class="my-auto w-full flex flex-col justify-center items-center px-4 space-y-4">
+            <h1 class="text-xl text-center font-semibold"> Maaf Kamu Tidak Bisa Mengakses Halaman Ini</h1>
+            <h1 class="text-lg text-center">Role kamu adalah hotel dan kami tidak mengizinkanmu mengakses halaman ini. Silahkan kembali.</h1>
+            <div id="back-btn" class="bg-slate-900 px-4 py-2 flex justify-center items-center rounded-md text-base">
+                <h1 class="text-white">Kembali</h1>
+            </div>
+        </div>
+    {% endif %}
+        
+    
+</div>
+<link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/toastify-js/src/toastify.min.css">
+<script type="text/javascript" src="https://cdn.jsdelivr.net/npm/toastify-js"></script> 
+
+
+{% if is_authorized %}
+<script>
+    const hotelSearchBtn = document.getElementById("hotel-search-btn");
+    const max_price_textfield = document.getElementById("room-max-price-textfield");
+    const min_price_textfield = document.getElementById("room-min-price-textfield");
+    const hotelSearchResultText = document.getElementById("hotel-search-result-text");
+    const hotelCardsContainer = document.getElementById("hotel-cards-container");
+
+    const setRecommendationHotel = (hotel_list) => {
+        if(hotel_list.length == 0){
+            hotelSearchResultText.textContent = `Sepertinya tidak ada yang sesuai dengan kriteriamu`
+            hotelCardsContainer.className = " grow  flex justify-center items-center w-full";
+            hotelCardsContainer.innerHTML= `
+                <h1>
+                    Tidak ada hotel yang sesuai
+                </h1>`
+            return;
+        }
+        hotelCardsContainer.className = "mt-4 grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 w-full gap-y-2 gap-x-2  md:gap-y-4 md:gap-x-4"
+        hotelSearchResultText.textContent = `Terdapat ${hotel_list.length} Hotel yang Cocok denganmu`
+        let htmlString = ``
+        for (const hotel of hotel_list){
+            starRatingString = ``
+            //console.log(hotel.hotel_star)
+            for (let i = 0; i < hotel.hotel_star; i++) {
+                starRatingString += '<span class="fas fa-star text-yellow-500"></span>';
+            }
+            htmlString+=`
+            <a href="/hotels/detail/${hotel.hotel_name}/${hotel.hotel_branch}"><div class="hotel-card  shadow-md grow min-h-64 bg-gray-200 m-2 min-w-[150px]
+        md:max-w-[18rem] rounded-md shadow-md">
+              
+              <div class="grow px-2">
+                  <h1 class="text-lg mt-2">${hotel.hotel_name}</h1>
+                  <h1 class="text-base text-gray-700 mt-1">Cabang ${hotel.hotel_branch}</h1>
+                  <div class="mt-2 flex items-center text-base">
+                    <div class="mr-auto">
+                        ${starRatingString}
+                    </div>
+                      <div class="flex items-center">
+                          <span class="mr-1 fas fa-star text-blue-600"></span>
+                          <h1 class="text-blue-600 font-bold ">${hotel.hotel_rating}</h1>
+                          <span class="ml-2 font-bold"> (${hotel.reviews_count})</span>
+                      </div>
+                  </div>
+              </div>
+              <div class="px-2 mt-2 py-2 bg-blue-600 flex items-center rounded-b-md">
+                 <h1 class="text-base text-white">Min. Rp${hotel.min_price}</h1>
+                </div>
+          </div>
+        </a>
+            `
+        }
+        hotelCardsContainer.innerHTML = htmlString;
+        
+
+    }
+    function showErrorToast(message) {
+        Toastify({
+            text: message,
+            duration: 3000, // Durasi tampilan pesan
+            gravity: "top", // Posisi pesan (bisa diatur menjadi "bottom")
+            position: 'right', // Posisi horizontal pesan (di kanan)
+            backgroundColor: "linear-gradient(to right, #ff4b2b, #ff416c)", // Warna latar belakang
+        }).showToast();
+    }
+
+    hotelSearchBtn.addEventListener('click',async ()=>{
+        if(max_price_textfield.value == '' && min_price_textfield.value == '' ){
+            showErrorToast('Maaf harga minimal dan maksimal tidak boleh kosong')
+            return;
+        }
+        const postData = {
+            'max_price': max_price_textfield.value !== '' ? parseInt(max_price_textfield.value) : Number.MAX_SAFE_INTEGER,
+            'min_price': min_price_textfield.value !== '' ? parseInt(min_price_textfield.value) : 0
+        };
+        if(postData.min_price < 0 || postData.max_price < 0){
+            showErrorToast('Maaf harga tidak boleh negatif')
+            return;
+        }
+        if(postData.min_price > postData.max_price){
+            showErrorToast('Maaf harga minimal tidak boleh melebihi harga maksimal')
+            return;
+        }
+        
+
+
+        // Konversi objek menjadi JSON
+        const data = JSON.stringify(postData);
+
+        // Pengaturan request
+        const requestOptions = {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: data
+            };
+        const url = 'http://localhost:8000/hotels/filter-hotel/';
+        try {
+            const res = await fetch(url,requestOptions)
+            const resData = await res.json()
+            setRecommendationHotel(resData.hotels);
+            console.log(resData)
+        } catch (err) {
+            console.log(err)
+        }
+    })
+</script>
+{% endif %}
+
+
+{% if not is_authorized %}
+    <script>
+        function goBack() {
+            window.history.back();
+        }
+        document.getElementById('back-btn').addEventListener('click',()=>{
+            goBack()
+        })
+    </script>
+{% endif %}
+    
+    
+
+
+{% endblock content %}
+    
+    

@@ -1,0 +1,251 @@
+{% extends 'base-tw.html' %}
+{% load static %}
+
+{% block meta %}
+<title>Register</title>
+{% endblock meta %}
+
+{% block content %}
+<div class="flex flex-col w-full min-h-screen pt-6 md:pt-12 items-center justify-center px-4 py-2">
+    <div class="mb-1 md:mb-4">
+        <h1 class="text-2xl md:text-3xl text-blue-600 font-bold text-center">Sistem Manajemen Hotel (SISTEL)</h1>
+    </div>
+    <div class="p-8 w-96 md:min-w-[36rem] lg:min-w-[42rem] max-w-[90%] min-w-[12rem]">
+        <div class=" flex w-full items-center">
+            <div class="w-1/2  min-h-[2rem] px-1 flex  items-center justify-center">
+                <div id="customer-tab" class="text-base w-full rounded-md bg-indigo-700 hover:bg-indigo-900 py-2 text-white flex justify-center items-center">Customer</div>
+            </div>
+            <div class="w-1/2  min-h-[2rem] px-1 flex  items-center justify-center">
+                <div id="hotel-tab" class="text-base w-full rounded-md bg-gray-200 hover:bg-gray-300 py-2 text-gray-600 flex justify-center items-center">Hotel</div>
+            </div>
+        </div>
+        <!-- kotak untuk customer -->
+        <div id="customer-register-box" class="mt-2">
+        <h1 class="text-2xl font-semibold">Pendaftaran Customer</h1>
+        <form action="" method="post" class="grid grid-cols-2 gap-x-4 space-y-2 md:space-y-4">
+            {% csrf_token %}
+            <div class="col-span-2 md:col-span-1">
+                <label for="email" class="block mb-1">Email</label>
+                <input type="email" name="email" id="email" class="w-full border-gray-300 bg-blue-100 rounded focus:outline-none focus:border-blue-500 px-4 py-2" placeholder="Masukkan email">
+            </div>
+            <div class="col-span-2 md:col-span-1">
+                <label for="nik" class="block mb-1">NIK</label>
+                <input type="text" name="nik" id="nik" class="w-full border-gray-300 bg-blue-100 rounded focus:outline-none focus:border-blue-500 px-4 py-2" placeholder="Masukkan NIK">
+            </div>
+            <div class="col-span-2 md:col-span-1">
+                <label for="password" class="block mb-1">Password</label>
+                <input type="password" name="password" id="password" class="w-full border-gray-300 bg-blue-100 rounded focus:outline-none focus:border-blue-500 px-4 py-2" placeholder="Masukkan password">
+            </div>
+            <div class="col-span-2 md:col-span-1">
+                <label for="confirm_password" class="block mb-1">Konfirmasi Password</label>
+                <input type="password" name="confirm_password" id="confirm_password" class="w-full border-gray-300 bg-blue-100 rounded focus:outline-none focus:border-blue-500 px-4 py-2" placeholder="Konfirmasi password">
+            </div>
+            <div class="col-span-2 md:col-span-1">
+                <label for="fname" class="block mb-1">Nama Depan</label>
+                <input type="text" name="fname" id="fname" class="w-full border-gray-300 bg-blue-100 rounded focus:outline-none focus:border-blue-500 px-4 py-2" placeholder="Masukkan nama depan">
+            </div>
+            <div class="col-span-2 md:col-span-1">
+                <label for="lname" class="block mb-1">Nama Belakang</label>
+                <input type="text" name="lname" id="lname" class="w-full border-gray-300 bg-blue-100 rounded focus:outline-none focus:border-blue-500 px-4 py-2" placeholder="Masukkan nama belakang">
+            </div>
+            <div class="col-span-2 md:col-span-1">
+                <label for="phone_num" class="block mb-1">Nomor Telepon</label>
+                <input type="tel" name="phone_num" id="phone_num" pattern="[0-9]*" title="Hanya input digit/angka diizinkan" class="w-full border-gray-300 bg-blue-100 rounded focus:outline-none focus:border-blue-500 px-4 py-2" placeholder="Masukkan nomor telepon">
+            </div>
+            
+            <div class="flex w-full col-span-2">
+                <button type="submit" class="mt-4 md:mt-0 w-full  bg-blue-500 text-white rounded py-2 px-4 hover:bg-blue-600 transition duration-300">Register</button>
+            </div>
+        </form>
+        </div>
+        <!-- kotak untuk hotel -->
+        <form id="hotel-register-box" action="" method="post" class="mt-2 hidden ">
+            {% csrf_token %}
+            <!-- kotak untuk owner -->
+            <div id="hotel-owner-info-box" class="flex flex-col">
+               <div class="w-full">
+                <h1 class="text-2xl font-semibold ">Pendaftaran Pemilik Hotel</h1>
+               </div>
+                <div  class="w-full grid grid-cols-2 gap-x-4 ">
+                    <div class="col-span-2 md:col-span-1 mb-2">
+                        <label for="email" class="block mb-1">Email</label>
+                        <input type="email" name="email"  class="w-full border-gray-300 bg-blue-100 rounded focus:outline-none focus:border-blue-500 px-4 py-2" placeholder="Masukkan email" required>
+                    </div>
+                    <div class="col-span-2  md:col-span-1 mb-2">
+                        <label for="fname" class="block mb-1">Nama Depan</label>
+                        <input type="text" name="fname"  class="w-full border-gray-300 bg-blue-100 rounded focus:outline-none focus:border-blue-500 px-4 py-2" placeholder="Masukkan nama depan" required>
+                    </div>
+                    <div class="col-span-2 md:col-span-1 mb-2">
+                        <label for="lname" class="block mb-1">Nama Belakang</label>
+                        <input type="text" name="lname"  class="w-full border-gray-300 bg-blue-100 rounded focus:outline-none focus:border-blue-500 px-4 py-2" placeholder="Masukkan nama belakang" required>
+                    </div>
+                    <div class="col-span-2 md:col-span-1 mb-2">
+                        <label for="password" class="block mb-1">Password</label>
+                        <input type="password" name="password"  class="w-full border-gray-300 bg-blue-100 rounded focus:outline-none focus:border-blue-500 px-4 py-2" placeholder="Masukkan password" required>
+                    </div>
+                    <div class="col-span-2 md:col-span-1 mb-2">
+                        <label for="confirm_password" class="block mb-1">Konfirmasi Password</label>
+                        <input type="password" name="confirm_password" class="w-full border-gray-300 bg-blue-100 rounded focus:outline-none focus:border-blue-500 px-4 py-2" placeholder="Konfirmasi password" required>
+                    </div>
+                    <div class="col-span-2 md:col-span-1 mb-2">
+                        <label for="phone_num" class="block mb-1">Nomor Telepon</label>
+                        <input type="tel" name="phone_num"  pattern="[0-9]*" title="Hanya input digit/angka diizinkan" class="w-full border-gray-300 bg-blue-100 rounded focus:outline-none focus:border-blue-500 px-4 py-2" placeholder="Masukkan nomor telepon">
+                    </div>
+                    <div class="flex col-span-2 mt-4">
+                        <div id="next-step-hotel-registration-btn" class="w-full bg-blue-500 text-white rounded py-2 px-4 hover:bg-blue-600 transition duration-300 text-center">Next</div>
+                    </div>
+                </div>
+            </div>
+            <!-- kotak untuk informasi hotel -->
+            <div id="hotel-info-box" class="hidden">
+                <h1 class="text-2xl font-semibold ">Pendaftaran Hotel</h1>
+                <div  class="grid grid-cols-2 gap-x-4  ">
+                    <div class="col-span-2 md:col-span-1 mb-2">
+                        <label for="hotel_name" class="block mb-1">Nama Hotel</label>
+                        <input type="text" name="hotel_name"  class="w-full border-gray-300 bg-blue-100 rounded focus:outline-none focus:border-blue-500 px-4 py-2" placeholder="Masukkan nama hotel" required>
+                    </div>
+                    <div class="col-span-2 md:col-span-1 mb-2">
+                        <label for="hotel_branch" class="block mb-1">Nama Cabang Hotel</label>
+                        <input type="text" name="hotel_branch"  class="w-full border-gray-300 bg-blue-100 rounded focus:outline-none focus:border-blue-500 px-4 py-2" placeholder="Masukkan nama cabang hotel" required>
+                    </div>
+                    <div class="col-span-2 md:col-span-1 mb-2">
+                        <label for="nib" class="block mb-1">NIB</label>
+                        <input type="text" name="nib"  class="w-full border-gray-300 bg-blue-100 rounded focus:outline-none focus:border-blue-500 px-4 py-2" placeholder="Masukkan NIB hotel" required>
+                    </div>
+                    <div class="col-span-2 md:col-span-1 mb-2">
+                        <label for="star" class="block mb-1">Bintang(1 - 5)</label>
+                        <input type="number" name="star" min="1" max="5"  class="w-full border-gray-300 bg-blue-100 rounded focus:outline-none focus:border-blue-500 px-4 py-2" placeholder="Masukkan bintang hotel" required>
+                    </div>
+                    <div class="col-span-2 md:col-span-1 mb-2">
+                        <label for="street" class="block mb-1">Masukkan Jalan Hotel</label>
+                        <input type="text" name="street"
+                          class="w-full border-gray-300 bg-blue-100 
+                          rounded focus:outline-none focus:border-blue-500 px-4 py-2"
+                           placeholder="Masukkan jalan hotel" required>
+                    </div>
+                    <div class="col-span-2 md:col-span-1 mb-2">
+                        <label for="district" class="block mb-1">Masukkan Distrik Hotel</label>
+                        <input type="text" name="district"
+                          class="w-full border-gray-300 bg-blue-100 
+                          rounded focus:outline-none focus:border-blue-500 px-4 py-2"
+                           placeholder="Masukkan distrik hotel" required>
+                    </div>
+                    <div class="col-span-2 md:col-span-1 mb-2">
+                        <label for="city" class="block mb-1">Masukkan Kota Hotel</label>
+                        <input type="text" name="city"
+                          class="w-full border-gray-300 bg-blue-100 
+                          rounded focus:outline-none focus:border-blue-500 px-4 py-2"
+                           placeholder="Masukkan kota hotel" required>
+                    </div>
+                    <div class="col-span-2 md:col-span-1 mb-2">
+                        <label for="province" class="block mb-1">Masukkan Provinsi Hotel</label>
+                        <input type="text" name="province"
+                          class="w-full border-gray-300 bg-blue-100 
+                          rounded focus:outline-none focus:border-blue-500 px-4 py-2"
+                           placeholder="Masukkan provinsi hotel" required>
+                    </div>
+                    <div class="col-span-2 md:col-span-1 mb-2">
+                        <label for="min_checkout" class="block mb-1">Masukkan Min Checkout</label>
+                        <input type="time" name="min_checkout"
+                          class="w-full border-gray-300 bg-blue-100 
+                          rounded focus:outline-none focus:border-blue-500 px-4 py-2"
+                           placeholder="Masukkan min checkout hotel" required>
+                    </div>
+                    <div class="col-span-2 md:col-span-1 mb-2">
+                        <label for="max_checkout" class="block mb-1">Masukkan Max Checkout</label>
+                        <input type="time" name="max_checkout"
+                          class="w-full border-gray-300 bg-blue-100 
+                          rounded focus:outline-none focus:border-blue-500 px-4 py-2"
+                           placeholder="Masukkan max checkout hotel" required>
+                    </div>
+                    <div class="col-span-2 mb-2">
+                        <label for="description" class="block mb-1">Masukkan Deskripsi Hotel</label>
+                        <textarea type="text" name="description"
+                        rows="3"
+                          class="w-full border-gray-300 bg-blue-100 
+                          rounded focus:outline-none focus:border-blue-500 px-4 py-2"
+                           placeholder="Masukkan deskripsi hotel" required></textarea>
+                    </div>
+                    <div class="flex col-span-2 space-x-2 mt-4">
+                        <div id="prev-step-hotel-registration-btn" 
+                        class="w-[50%] bg-blue-500 text-white rounded py-2 px-4 
+                        hover:bg-blue-600 transition duration-300 text-center">Previous</div>
+                        <button type="submit"
+                        class="w-[50%] bg-blue-500 text-white rounded py-2 px-4 
+                        hover:bg-blue-600 transition duration-300 text-center">Register</button>
+                        
+                    </div>
+                </div>
+            </div>
+        </form>
+        <div class="mt-2 w-full flex items-center justify-end">
+            <div class="px-2 py-2 flex items-center justify-center">
+                <span> Sudah punya akun? <a href="/login/" class="text-base text-blue-500">Login</a> </span>
+            </div>
+        </div>
+
+        {% if messages %}
+            {% for message in messages %}
+                <p class="text-red-500">{{ message }}</p>
+            {% endfor %}
+        {% endif %}
+    </div>
+</div>
+
+<script>
+    let selectedBox = 'CUSTOMER';
+    let selectedhotelBox = 'OWNER';
+    const customerRegistrationBox = document.getElementById('customer-register-box');
+    const hotelRegistrationBox = document.getElementById("hotel-register-box");
+    const hotelOwnerBox = document.getElementById("hotel-owner-info-box");
+    const hotelInfoBox = document.getElementById("hotel-info-box");
+    const customerTab = document.getElementById("customer-tab");
+    const hotelTab = document.getElementById("hotel-tab");
+
+    document.getElementById("next-step-hotel-registration-btn").addEventListener('click',()=>{
+        selectedhotelBox = 'HOTEL_INFORMATION'
+        setActiveHotelBox();
+    })
+    document.getElementById("prev-step-hotel-registration-btn").addEventListener('click',()=>{
+        selectedhotelBox = 'OWNER'
+        setActiveHotelBox();
+    })
+
+    const setActiveHotelBox = ()=> {
+        if(selectedhotelBox == 'OWNER'){
+            hotelOwnerBox.classList.remove('hidden');
+            hotelInfoBox.classList.add('hidden');
+        }
+        else{
+            hotelOwnerBox.classList.add('hidden');
+            hotelInfoBox.classList.remove('hidden');
+        }
+    }
+    const setActiveRegistrationBox = ()=> {
+        if(selectedBox == 'CUSTOMER'){
+            customerTab.className = "text-base w-full rounded-md bg-indigo-700 hover:bg-indigo-900 py-2 text-white flex justify-center items-center";
+            hotelTab.className = "text-base w-full rounded-md bg-gray-200 hover:bg-gray-300 py-2 text-gray-600 flex justify-center items-center";
+            customerRegistrationBox.classList.remove('hidden');
+            hotelRegistrationBox.classList.add('hidden');
+            selectedhotelBox = 'OWNER'
+            setActiveHotelBox();
+        }else{
+            customerTab.className = "text-base w-full rounded-md bg-gray-200 hover:bg-gray-300 py-2 text-gray-600 flex justify-center items-center";
+            hotelTab.className = "text-base w-full rounded-md bg-indigo-700 hover:bg-indigo-900 py-2 text-white flex justify-center items-center";
+            customerRegistrationBox.classList.add('hidden')
+            hotelRegistrationBox.classList.remove('hidden')
+        }
+    }
+
+    customerTab.addEventListener('click',()=>{
+        selectedBox = 'CUSTOMER';
+        setActiveRegistrationBox();
+    });
+    hotelTab.addEventListener('click',()=>{
+        selectedBox = 'HOTEL';
+        setActiveRegistrationBox();
+    })
+
+    // Example starter JavaScript for disabling form submissions if there are invalid fields
+</script>
+{% endblock content %}
