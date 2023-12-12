@@ -1,0 +1,87 @@
+{% extends 'base-tw.html' %}
+{% load static %}
+{% block meta %}
+    <title>Reservasi Kamar</title>
+{% endblock meta %}
+
+{% block content %}
+{% include 'nav.html' with is_hotel=is_hotel %}
+<div class="max-w-7xl mt-16 min-h-screen mx-auto flex flex-col items-center  w-screen px-4 " >   
+
+    {% if data|length > 0 %}
+    <div class="w-full my-10">
+        <table class="min-w-full table-auto border border-gray-200 rounded-lg overflow-hidden outline outline-slate-200">
+            <thead>
+                <tr>
+                    <th class="border-b bg-blue-500 text-white p-4">ID Reservasi</th>
+                    <th class="border-b bg-blue-500 text-white p-4">Nomor Kamar</th>
+                    <th class="border-b bg-blue-500 text-white p-4">Nama Hotel</th>
+                    <th class="border-b bg-blue-500 text-white p-4">Cabang Hotel</th>
+                    <th class="border-b bg-blue-500 text-white p-4">Date</th>
+                    <th class="border-b bg-blue-500 text-white p-4">Status Reservasi</th>
+                    <th class="border-b bg-blue-500 text-white p-4">Action</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for rsv in data %}
+                    <tr class="text-center">
+                        <td class="border-b p-4">{{ rsv.rsv_id }}</td>
+                        <td class="border-b p-4">{{ rsv.rnum }}</td>
+                        <td class="border-b p-4">{{ rsv.rhotelname }}</td>
+                        <td class="border-b p-4">{{ rsv.rhotelbranch }}</td>
+                        <td class="border-b p-4 whitespace-nowrap">{{ rsv.Datetime }}</td>
+                        <td class="border-b p-4">
+                            <span class="{% if rsv.isActive %}text-green-500{% else %}text-red-500{% endif %}">
+                                {% if rsv.isActive %}Active{% else %}Inactive{% endif %}
+                            </span>
+                        </td>
+                        <td class="border-b p-4">
+                            {% if rsv.isActive %}
+                            <a href="{% url 'reservasi:complaint' rsv.rsv_id %}">
+                                <button class="p-2 bg-blue-500 text-white hover:bg-blue-600 rounded">Complaint</button>
+                            </a>
+                            {% else %}
+                                <button class="p-2 bg-blue-500 text-white hover:bg-blue-600 rounded" onclick="showInactiveStatusAlert()">Complaint</button>
+                            {% endif %}
+                        </td>
+                    </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+        <!-- Tambahkan lebih banyak kartu sesuai kebutuhan -->
+      </div>
+    </div>
+    {% else %}
+    <div id="hotel-cards-container" class=" grow  flex justify-center items-center w-full">
+        <h1>
+            Tidak ada hotel yang sesuai
+        </h1>
+    </div>
+    {% endif %}    
+        
+    
+</div>
+<link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/toastify-js/src/toastify.min.css">
+<script type="text/javascript" src="https://cdn.jsdelivr.net/npm/toastify-js"></script> 
+
+
+{% if not is_authorized %}
+    <script>
+        function showInactiveStatusAlert() {
+            alert("Complaint submission is disabled for inactive reservations!");
+        }
+        function goBack() {
+            window.history.back();
+        }
+        document.getElementById('back-btn').addEventListener('click',()=>{
+            goBack()
+        })
+    </script>
+{% endif %}
+    
+    
+
+
+{% endblock content %}
+    
+    

@@ -151,7 +151,9 @@ def login_with_postgres(request):
                 }
                 print(request.session['user_data'])
                 # TODO: ganti redirect ke dashboard
-                return HttpResponseRedirect('/hotels/')  
+                if is_user == 'false':
+                    return HttpResponseRedirect('/hotel/dashboard/') 
+                return HttpResponseRedirect('/reservasi/dashboard/')  
             messages.error(request, 'Maaf, password yang kamu masukkan salah.')
     return render(request,"login.html")
 

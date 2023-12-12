@@ -38,12 +38,15 @@ INSTALLED_APPS = [
     'django.contrib.contenttypes',
     'django.contrib.sessions',
     'django.contrib.messages',
+    'daphne',
     'django.contrib.staticfiles',
     'corsheaders',
     'rest_framework',
     'rest_framework.authtoken',
     'hotels_and_reviews',
+    'hotel',
     'authentication',
+    'reservasi',
 ]
 
 MIDDLEWARE = [

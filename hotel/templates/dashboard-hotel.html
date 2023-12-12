@@ -1,0 +1,122 @@
+{% extends 'base-tw.html' %} {% load static %} {% block meta %}
+<title>Reservasi Kamar</title>
+{% endblock meta %} {% block content %} {% include 'nav.html' with is_hotel=user_data.is_hotel %}
+<div
+  class="max-w-7xl mt-16 min-h-screen mx-auto flex flex-col items-center w-screen px-4"
+>
+  <div class="container mx-auto mt-8 p-6 bg-gray-100 rounded-lg shadow-md">
+    <h1 class="text-3xl font-bold mb-6 text-blue-700">Hotel Dashboard</h1>
+
+    <!-- Hotel Information Card -->
+    <div class="bg-white p-6 rounded-lg shadow-md mb-8">
+      <h2 class="text-xl font-bold mb-4 text-gray-800">Hotel Information</h2>
+      <div class="mb-4">
+        <span class="block text-sm text-gray-600">Hotel Owner:</span>
+        <span class="text-lg text-gray-800 font-semibold">{% if hotel.owner %} {{hotel.owner}} {% else %} Not Set {% endif %}</span>
+      </div>
+      <div class="mb-4">
+        <span class="block text-sm text-gray-600">Phone Number:</span>
+        <span class="text-lg text-gray-800 font-semibold">{% if hotel.phone %} {{hotel.phone}} {% else %} Not Set {% endif %}</span>
+      </div>
+      <div class="mb-4">
+        <span class="block text-sm text-gray-600">Email:</span>
+        <span class="text-lg text-gray-800 font-semibold">{{  hotel.email }}</span>
+      </div>
+      <div class="mb-4">
+        <span class="block text-sm text-gray-600">Business License:</span>
+        <span class="text-lg text-gray-800 font-semibold">{% if hotel.business_license %} {{hotel.business_license}} {% else %} Not Set {% endif %}</span>
+      </div>
+      <div class="mb-4">
+        <span class="block text-sm text-gray-600">Hotel Name:</span>
+        <span class="text-lg text-gray-800 font-semibold">{{hotel.hotel_name}}</span>
+      </div>
+      <div class="mb-4">
+        <span class="block text-sm text-gray-600">Branch Name:</span>
+        <span class="text-lg text-gray-800 font-semibold">{{hotel.city}}</span>
+      </div>
+      <div class="mb-4">
+        <span class="block text-sm text-gray-600">Hotel Address:</span>
+        <span class="text-lg text-gray-800 font-semibold">{{hotel.address}}</span>
+      </div>
+    </div>
+
+    <!-- Room Listing Table -->
+    <div class="bg-white p-6 rounded-lg shadow-md mb-8">
+      <h2 class="text-xl font-bold mb-4 text-gray-800">Room Listings</h2>
+      <table
+        class="min-w-full table-auto border border-gray-200 rounded-lg overflow-hidden"
+      >
+        <!-- Table header -->
+        <thead>
+          <tr class="text-left">
+            <th class="border-b bg-blue-500 text-white p-4">No.</th>
+            <th class="border-b bg-blue-500 text-white p-4">Room Number</th>
+            <th class="border-b bg-blue-500 text-white p-4">Floor</th>
+            <th class="border-b bg-blue-500 text-white p-4">Price</th>
+          </tr>
+        </thead>
+        <!-- Table body -->
+        <tbody>
+        {% for room in rooms %}
+          <tr class="text-left">
+            <td class="border-b p-4">{{ forloop.counter }}</td>
+            <td class="border-b p-4">{{ room.number }}</td>
+            <td class="border-b p-4">{{ room.floor }}</td>
+            <td class="border-b p-4">{{ room.price }}</td>
+          </tr>
+          {% endfor %}
+          <!-- Add more room rows as needed -->
+        </tbody>
+      </table>
+    </div>
+
+    <!-- Facilities Listing Table -->
+    <div class="bg-white p-6 rounded-lg shadow-md">
+      <h2 class="text-xl font-bold mb-4 text-gray-800">Facilities</h2>
+      <table
+        class="min-w-full table-auto border border-gray-200 rounded-lg overflow-hidden"
+      >
+        <!-- Table header -->
+        <thead>
+          <tr class="text-left">
+            <th class="border-b bg-blue-500 text-white p-4">No.</th>
+            <th class="border-b bg-blue-500 text-white p-4">Facility</th>
+          </tr>
+        </thead>
+        <!-- Table body -->
+        <tbody>
+        {% for facility in facilities %}
+          <tr class="text-left">
+            <td class="border-b p-4">{{ forloop.counter }}</td>
+            <td class="border-b p-4">{{ facility.facility_name }}</td>
+          </tr>
+          {% endfor %}
+          <!-- Add more room rows as needed -->
+        </tbody>
+      </table>
+    </div>
+  </div>
+</div>
+<link
+  rel="stylesheet"
+  type="text/css"
+  href="https://cdn.jsdelivr.net/npm/toastify-js/src/toastify.min.css"
+/>
+<script
+  type="text/javascript"
+  src="https://cdn.jsdelivr.net/npm/toastify-js"
+></script>
+
+{% if not is_authorized %}
+<script>
+  function showInactiveStatusAlert() {
+    alert("Complaint submission is disabled for inactive reservations!");
+  }
+  function goBack() {
+    window.history.back();
+  }
+  document.getElementById("back-btn").addEventListener("click", () => {
+    goBack();
+  });
+</script>
+{% endif %} {% endblock content %}
