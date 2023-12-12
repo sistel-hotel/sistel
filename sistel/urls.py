@@ -23,5 +23,7 @@ urlpatterns = [
     path('hotels/', include('hotels_and_reviews.urls')),
     path('reservasi/', include('reservasi.urls')),
     path('', include('authentication.urls')),
-    path('reservasi-hotel/', include('reservasi_hotel.urls'))
+    path('reservasi-hotel/', include('reservasi_hotel.urls')),
+    path('fasilitas/', include('fasilitas.urls')),
+
 ]

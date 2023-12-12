@@ -1,0 +1,48 @@
+{% extends 'base-tw.html' %}
+{% load static %}
+{% block meta %}
+    <title>Reservasi Kamar</title>
+{% endblock meta %}
+
+{% block content %}
+{% include 'nav.html' with is_hotel=is_hotel %}
+<div class="w-[100vw] min-h-screen flex flex-col items-center justify-start overflow-x-auto">
+    <div class="md:max-w-7xl max-w-[80vw] mt-16 mx-auto flex flex-col items-center w-full px-4">
+        <h1 class="text-3xl font-bold mb-4 mt-6">Daftar Fasilitas Hotel</h1>
+        <a href="{% url 'add_hotel_facility' %}" class="text-blue-500 hover:underline mb-4">Tambah Fasilitas</a>
+        <div class="overflow-x-auto">
+            <table class="min-w-full border border-gray-200">
+                <thead>
+                    <tr>
+                        <th class="px-6 py-3 bg-gray-100 text-left text-sm font-semibold text-gray-600 uppercase border-b border-gray-200">Nomor</th>
+                        <th class="px-6 py-3 bg-gray-100 text-left text-sm font-semibold text-gray-600 uppercase border-b border-gray-200">Hotel</th>
+                        <th class="px-6 py-3 bg-gray-100 text-left text-sm font-semibold text-gray-600 uppercase border-b border-gray-200">Branch</th>
+                        <th class="px-6 py-3 bg-gray-100 text-left text-sm font-semibold text-gray-600 uppercase border-b border-gray-200">Fasilitas</th>
+                        <th class="px-6 py-3 bg-gray-100 text-left text-sm font-semibold text-gray-600 uppercase border-b border-gray-200">Action</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% if facilities %}
+                        {% for facility in facilities %}
+                            <tr>
+                                <td class="px-6 py-4 whitespace-nowrap border-b border-gray-200">{{ forloop.counter }}</td>
+                                <td class="px-6 py-4 whitespace-nowrap border-b border-gray-200">{{ facility.1 }}</td>
+                                <td class="px-6 py-4 whitespace-nowrap border-b border-gray-200">{{ facility.2 }}</td>
+                                <td class="px-6 py-4 whitespace-nowrap border-b border-gray-200">{{ facility.0 }}</td>
+                                <td class="px-6 py-4 whitespace-nowrap border-b border-gray-200">
+                                    <a href="{% url 'update_hotel_facility' facility.0 %}" class="text-blue-500 hover:underline">Ubah</a>
+                                    <a href="/fasilitas/delete_facility/{{facility.0}}/{{facility.1}}/{{facility.2}}/" class="text-red-500 hover:underline ml-2">Hapus</a>
+                                </td>
+                            </tr>
+                        {% endfor %}
+                    {% else %}
+                        <tr>
+                            <td colspan="5" class="px-6 py-4 border-b border-gray-200 text-center">Belum ada fasilitas.</td>
+                        </tr>
+                    {% endif %}
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+{% endblock content %}
