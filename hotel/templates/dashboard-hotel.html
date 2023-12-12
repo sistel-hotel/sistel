@@ -12,11 +12,11 @@
       <h2 class="text-xl font-bold mb-4 text-gray-800">Hotel Information</h2>
       <div class="mb-4">
         <span class="block text-sm text-gray-600">Hotel Owner:</span>
-        <span class="text-lg text-gray-800 font-semibold">{% if hotel.owner %} {{hotel.owner}} {% else %} Not Set {% endif %}</span>
+        <span class="text-lg text-gray-800 font-semibold"> {{user_data.fname}} {{user_data.lname}}</span>
       </div>
       <div class="mb-4">
         <span class="block text-sm text-gray-600">Phone Number:</span>
-        <span class="text-lg text-gray-800 font-semibold">{% if hotel.phone %} {{hotel.phone}} {% else %} Not Set {% endif %}</span>
+        <span class="text-lg text-gray-800 font-semibold">{% if phone %} {{phone}} {% else %} Not Set {% endif %}</span>
       </div>
       <div class="mb-4">
         <span class="block text-sm text-gray-600">Email:</span>

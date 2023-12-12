@@ -6,9 +6,10 @@ from django.views.decorators.csrf import csrf_exempt
 @csrf_exempt
 def dashboard_hotel(request):
     user_data = request.session['user_data']
+    
     if not user_data:
         return redirect('/login/')
-    
+    #print(user_data)
     email = user_data['email']
     query = f"""
     SELECT * FROM hotel WHERE email = '{ email }'
@@ -61,4 +62,11 @@ def dashboard_hotel(request):
     else:
         print("Hotel room data not found")
 
-    return render(request, 'dashboard-hotel.html', { 'user_data': user_data, 'hotel': hotel_data_dict, 'facilities': facilities, 'rooms': rooms })
+    query = f"""
+    SELECT RESERVATION_ACTOR.phonenum FROM RESERVATION_ACTOR 
+    WHERE RESERVATION_ACTOR.email = '{user_data['email']}' LIMIT 1;
+    """
+    res = execute_sql_query(query)
+    phonenum = res[0][0]
+
+    return render(request, 'dashboard-hotel.html', { 'user_data': user_data, 'hotel': hotel_data_dict, 'facilities': facilities,'phone':phonenum, 'rooms': rooms })
