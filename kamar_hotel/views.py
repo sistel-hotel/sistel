@@ -37,7 +37,7 @@ def kamar_hotel(request):
 	data = parse(cursor)
 	daftar_kamar = []
 	for kamar in data:
-		kamar['slug'] = title_to_slug(kamar['nomor'])
+		kamar['slug'] = title_to_slug(kamar['number'])
 		daftar_kamar.append(kamar)
 	context['data_kamar'] = daftar_kamar
 
