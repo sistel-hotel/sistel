@@ -5,7 +5,7 @@ from django.views.decorators.csrf import csrf_exempt
 # Create your views here.
 @csrf_exempt
 def dashboard_hotel(request):
-    user_data = request.session['user_data']
+    user_data = request.session.get('user_data') 
     
     if not user_data:
         return redirect('/login/')

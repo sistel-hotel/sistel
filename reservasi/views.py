@@ -5,7 +5,7 @@ from django.views.decorators.csrf import csrf_exempt
 
 @csrf_exempt
 def show_reservasi_kamar(request):
-    user_data = request.session['user_data']
+    user_data = request.session.get('user_data') 
     
     if not user_data:
         return redirect('/login/')
@@ -36,7 +36,7 @@ def show_reservasi_kamar(request):
 
 @csrf_exempt
 def complaint(request, id):
-    user_data = request.session['user_data']
+    user_data = request.session.get('user_data') 
     custemail = user_data['email']
     if not user_data:
         return redirect('/login/')
@@ -110,7 +110,7 @@ def save_complaint(request, id):
 
 @csrf_exempt
 def dashboard_pengguna(request):
-    user_data = request.session['user_data']
+    user_data = request.session.get('user_data') 
     if not user_data:
         return redirect('/login/')
     query = f"""
