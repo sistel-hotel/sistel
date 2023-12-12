@@ -1,0 +1,42 @@
+{% extends 'base.html'%}
+{% load static %}
+
+{% block meta %}
+<title>SISTEL | Tambah Kamar </title>
+
+{% endblock meta %}
+
+{% block content %}
+{% include 'nav.html' with is_hotel=is_hotel %}
+
+<main>
+    <div class="vh-100 d-flex justify-content-center align-items-center">
+        <div class="col-md-4 p-5 shadow-sm border rounded-5 border-primary grad">
+            <h1 class="text-center mb-4 text-primary">Form Tambah Kamar</h1>
+            <form id="form-submit-kamar" method="POST" action="{% url 'kamar_hotel:show_create_kamar_hotel' %}">
+                {%csrf_token%}
+                <div class="mb-3">
+                    <label for="inputNomor" class="form-label">Nomor Kamar</label>
+                    <input type="number" class="form-control border border-primary" id="nomor" name="nomor" required>
+                </div>
+                <div class="mb-3">
+                    <label for="inputHarga" class="form-label">Harga</label>
+                    <input type="number" class="form-control border border-primary" id="price" name="price" required>
+                </div>
+                <div class="mb-3">
+                    <label for="inputLantai" class="form-label">Lantai</label>
+                    <input type="number" class="form-control border border-primary" id="lantai" name="lantai" required>
+                </div>
+                <div class="d-grid">
+                    <button class="btn btn-primary" type="submit" name="submitKamar"  data-bs-toggle="modal" data-bs-target="#modal-message">Tambah Kamar</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</main>
+
+<script>
+    // Example starter JavaScript for disabling form submissions if there are invalid fields
+
+</script>
+{% endblock content %}

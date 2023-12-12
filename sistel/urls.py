@@ -21,4 +21,5 @@ urlpatterns = [
     path('admin/', admin.site.urls),
     path('hotels/', include('hotels_and_reviews.urls')),
     path('', include('authentication.urls')),
+    path('kamar-hotel/', include('kamar_hotel.urls')),
 ]

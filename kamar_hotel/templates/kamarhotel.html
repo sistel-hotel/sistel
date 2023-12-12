@@ -1,0 +1,47 @@
+{% extends 'base.html'%}
+{% load static %}
+
+{% block meta %}
+<title>SISTEL | Daftar Kamar </title>
+{% endblock meta %}
+
+{% block content %}
+{% include 'nav.html' with is_hotel=is_hotel %}
+
+<main>
+
+    <div class="d-flex vh-90 mx-auto mt-5 justify-content-center align-items-center">
+      <div class="container-sm p-5 mt-5 shadow-sm border rounded-5 border-primary">
+        <h1 class="text-center mb-5 text-primary">Kamar Hotel</h1>
+        <a href="{% url 'kamar_hotel:show_create_kamar_hotel' %}"><button class="btn btn-primary" type="submit">Tambah Kamar</button></a>
+        <table class="table ">
+            <thead class="thead-dark">
+              <tr>
+                <th scope="col">Nomor Kamar</th>
+                <th scope="col">Harga</th>
+                <th scope="col">Lantai</th>
+                <th scope="col">Daftar Fasilitas</th>
+                <th scope="col">Hapus Kamar</th>
+              </tr>
+            </thead>
+            <tbody class="table-group-divider align-middle">
+              {% for kamar in data_kamar %}
+              <tr>
+                <td>{{ kamar.number }}</td>
+                <td>{{ kamar.price }}</td>
+                <td>{{ kamar.lantai }}</td>
+                <td>{{ kamar.facilities }}</td>
+                <td><button class="btn btn-primary" type="submit"><a href="{{ kamar.slug }}">Pilih</a></button></td>
+              </tr>
+             {% endfor %}
+            </tbody>
+          </table>
+      </div>
+    </div>
+
+</main>
+
+<script>
+
+</script>
+{% endblock content %}

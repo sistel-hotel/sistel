@@ -44,6 +44,7 @@ INSTALLED_APPS = [
     'rest_framework.authtoken',
     'hotels_and_reviews',
     'authentication',
+    'kamar_hotel',
 ]
 
 MIDDLEWARE = [
