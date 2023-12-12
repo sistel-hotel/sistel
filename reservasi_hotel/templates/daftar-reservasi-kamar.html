@@ -1,0 +1,61 @@
+{% extends 'base-tw.html' %}
+{% load static %}
+
+{% block meta %}
+    <title>Daftar Reservasi</title>
+{% endblock meta %}
+
+{% block content %}
+    {% include 'nav.html' with is_hotel=is_authorized %}
+    <div class="w-full flex items-center justify-center min-h-screen bg-gray-100">
+        
+        {% if not is_authorized %}
+        <div class="w-full max-w-3xl bg-white rounded p-8 shadow-md">
+            <p class="text-red-500 mb-4">Maaf, peran Anda adalah sebagai customer sehingga tidak diizinkan mengakses halaman ini.</p>
+        </div>
+        {% else %}
+        <div class="w-full max-w-[90%] bg-white rounded p-8 shadow-md">
+            <h1 class="text-3xl font-bold mb-6">Daftar Reservasi</h1>
+            <div class="overflow-x-auto">
+                <table class=" min-w-full border border-gray-300 overflow-x-auto">
+                    <thead class="w-full">
+                        <tr class="flex w-full">
+                            <th class="border border-gray-300 px-4 py-2 w-[20%] whitespace-normal overflow-wrap break-words text-center">ID Reservasi</th>
+                            <th class="border border-gray-300 px-4 py-2 w-[10%] whitespace-normal overflow-wrap break-words text-center">Nomor Kamar</th>
+                            <th class="border border-gray-300 px-4 py-2 w-[20%] whitespace-normal overflow-wrap break-words text-center">Date</th>
+                            <th class="border border-gray-300 px-4 py-2 w-[20%] whitespace-normal overflow-wrap break-words text-center">Status Reservasi</th>
+                            <th class="border border-gray-300 px-4 py-2 w-[30%] whitespace-normal overflow-wrap break-words text-center">Action</th>
+                        </tr>
+                    </thead>
+                    <tbody class="w-full">
+                        <!-- Isi tabel akan ditambahkan di sini -->
+                        {% for reservation_data in reservation %}
+                        <tr class="flex w-full">
+                            <td class="border border-gray-300 px-4 py-2 w-[20%] whitespace-normal overflow-wrap break-words text-center">{{reservation_data.reservation_id}}</td>
+                            <td class="border border-gray-300 px-4 py-2 w-[10%] whitespace-normal overflow-wrap break-words text-center">{{reservation_data.reservation_room_number}}</td>
+                            <td class="border border-gray-300 px-4 py-2 w-[20%] whitespace-normal overflow-wrap break-words text-center">{{reservation_data.reservation_time}}</td>
+                            <td class="border border-gray-300 px-4 py-2 w-[20%] whitespace-normal overflow-wrap break-words text-center">{{reservation_data.reservation_status}}</td>
+                            <td class="border border-gray-300 px-4 py-2 w-[30%] whitespace-normal overflow-wrap break-words text-center">
+                                <a href="/reservasi-hotel/hotel/{{reservation_data.reservation_id}}/update" class="bg-blue-500 text-white py-2 px-4 rounded hover:bg-blue-600">Update Status</a>
+                                <a href="/reservasi-hotel/hotel/{{reservation_data.reservation_id}}" class="bg-indigo-500 text-white py-2 px-4 rounded hover:bg-indigo-600">Detail</a>
+                            </td>
+                        </tr>
+                        {% endfor %}
+                        <!-- Tambahkan baris-baris lain sesuai data reservasi yang ada -->
+                    </tbody>
+                </table>
+                
+                
+                    
+            </div>
+            {% if reservation|length == 0 %}
+                    <div class= "w-full  pt-6">
+                        <h1 class="text-center">belum ada reservasi</h1>
+                    </div>
+                {% endif %}
+        </div>
+        {% endif %}
+            
+        
+    </div>
+{% endblock content %}

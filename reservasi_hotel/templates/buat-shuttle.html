@@ -1,0 +1,41 @@
+{% extends 'base-tw.html' %}
+{% load static %}
+
+{% block meta %}
+    <title>Buat Shuttle</title>
+{% endblock meta %}
+
+{% block content %}
+    {% include 'nav.html' with is_hotel=is_hotel %}
+    <div class="w-full flex items-center justify-center min-h-screen bg-gray-100">
+       
+        <div class="w-full max-w-3xl bg-white rounded p-8 shadow-md">
+            {% if messages %}
+            {% for message in messages %}
+                <p class="text-red-500">{{ message }}</p>
+            {% endfor %}
+        {% endif %}
+            <h1 class="text-3xl font-bold mb-6">RESERVASI SHUTTLE</h1>
+            <div class="mb-6">
+                <p class="text-lg mb-2 text-gray-700">ID Reservasi: {{reservation_id}}</p>
+            </div>
+            <form action="" method="post">
+                {% csrf_token %}
+                <div class="mb-6">
+                    <label for="status" class="block text-gray-700 font-bold mb-2">Pilih Kendaraan:</label>
+                    <select id="status" name="platnum" class="border border-gray-300 rounded px-4 py-3 w-full" required>
+                        
+                        {% for vehicle in vehicles  %}
+                            
+                            <option value="{{vehicle.platnum}}">{{vehicle.vehicle_name}}</option>
+                    
+                                
+                        {% endfor %}
+                            
+                    </select>
+                </div>
+                <button type="submit" class="bg-blue-500 text-white py-3 px-6 rounded hover:bg-blue-600">Buat</button>
+            </form>
+        </div>
+    </div>
+{% endblock content %}
