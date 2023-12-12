@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Add Fasilitas Hotel</title>
+</head>
+<body>
+    <h1>Tambah Fasilitas Hotel</h1>
+    <form method="post">
+        {% csrf_token %}
+        
+        <label for="hotel_name">Nama Hotel:</label>
+        <input type="text" id="hotel_name" name="hotel_name" required>
+
+        <label for="hotel_branch">Cabang Hotel:</label>
+        <input type="text" id="hotel_branch" name="hotel_branch" required>
+
+        <label for="facility_name">Nama Fasilitas:</label>
+        <input type="text" id="facility_name" name="facility_name" required>
+
+        <button type="submit">Tambah</button>
+    </form>
+</body>
+</html>

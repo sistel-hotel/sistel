@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Daftar Fasilitas Hotel</title>
+</head>
+<body>
+    <h1>Daftar Fasilitas Hotel</h1>
+    <a href="{% url 'add_hotel_facility' %}">Tambah Fasilitas</a>
+    <table>
+        <tr>
+            <th>Nomor</th>
+            <th>Hotel</th>
+            <th>Branch</th>
+            <th>Fasilitas</th>
+            <th>Action</th>
+        </tr>
+        {% if facilities %}
+            {% for facility in facilities %}
+                <tr>
+                    <td>{{ forloop.counter }}</td>
+                    <td>{{ facility.1 }}</td>
+                    <td>{{ facility.2 }}</td>
+                    <td>{{ facility.0 }}</td>
+                    <td>
+                        <a href="{% url 'update_hotel_facility' facility.0 %}">Ubah</a>
+                        <a href="{% url 'delete_hotel_facility' facility_name=facility_name hotel_name=hotel_name hotel_branch=hotel_branch %}
+                        ">Hapus</a>
+                    </td>
+                </tr>
+            {% endfor %}
+        {% else %}
+            <tr>
+                <td colspan="3">Belum ada fasilitas.</td>
+            </tr>
+        {% endif %}
+    </table>
+</body>
+</html>
