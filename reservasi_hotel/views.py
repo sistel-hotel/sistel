@@ -173,7 +173,7 @@ def detail_reservasi(request, rsv_id):
 @csrf_exempt
 def  daftar_reservasi_kamar(request):
     session_data = request.session.get('user_data')
-
+    print('heiiii')
     is_authorized = True
     print(session_data)
     if not session_data:
@@ -231,4 +231,4 @@ def  daftar_reservasi_kamar(request):
     }
     print(data)
 
-    return render(request=request, template_name='daftar-reservasi-kamar.html', context=data)
+    return render(request=request, template_name='daftar-reservasi-kamar-by-hotel.html', context=data)

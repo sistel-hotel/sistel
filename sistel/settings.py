@@ -47,6 +47,7 @@ INSTALLED_APPS = [
     'hotel',
     'authentication',
     'reservasi',
+    'reservasi_hotel'
 ]
 
 MIDDLEWARE = [
@@ -89,7 +90,7 @@ TEMPLATES = [
 ]
 
 WSGI_APPLICATION = 'sistel.wsgi.application'
-#ASGI_APPLICATION = 'sistel.asgi.application' 
+ASGI_APPLICATION = 'sistel.asgi.application' 
 
 #tapi tidak dipakai dengan orm django
 DATABASES = {
