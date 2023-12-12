@@ -165,7 +165,7 @@ def dashboard_pengguna(request):
                   {'user_data': user_data, 'nik':nik, 'phone':phonenum, 
                                                       'complaints':complaints ,'comments':comments})
 
-
+@csrf_exempt
 def buat_reservasi(request):
     def generate_random_string(length):
         random_string = ''.join(random.choices('ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz', k=length))
@@ -247,7 +247,7 @@ def buat_reservasi(request):
     else:
         return render(request, 'buat-reservasi.html')
     
-
+@csrf_exempt
 def detail_reservasi(request, id):
     room_query = execute_sql_query(f"""
     SELECT * FROM reservation_room
@@ -291,7 +291,7 @@ def detail_reservasi(request, id):
     print(context)
 
     return render(request, 'detail-reservasi.html', context)
-
+@csrf_exempt
 def cancel_reservasi(request, id):
     update_status = execute_sql_query_no_fetch(f"""
     UPDATE  reservation_status_history 
