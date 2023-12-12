@@ -19,6 +19,7 @@
                     <th class="border-b bg-blue-500 text-white p-4">Cabang Hotel</th>
                     <th class="border-b bg-blue-500 text-white p-4">Date</th>
                     <th class="border-b bg-blue-500 text-white p-4">Status Reservasi</th>
+                    <th class="border-b bg-blue-500 text-white p-4">Status</th>
                     <th class="border-b bg-blue-500 text-white p-4">Action</th>
                 </tr>
             </thead>
@@ -36,12 +37,30 @@
                             </span>
                         </td>
                         <td class="border-b p-4">
-                            {% if rsv.isActive %}
-                            <a href="{% url 'reservasi:complaint' rsv.rsv_id %}">
-                                <button class="p-2 bg-blue-500 text-white hover:bg-blue-600 rounded">Complaint</button>
+                           
+                            <span class="">
+                                {{ rsv.status }}
+                            </span>
+                
+                        </td>
+                        <td class="border-b p-4 flex gap-1">
+                            <a href="{% url 'reservasi:detail-reservasi' rsv.rsv_id %}">
+                                <button class="p-2 bg-blue-500 text-white hover:bg-blue-600 rounded">Detail</button>
+                            </a>
+                            {% if rsv.status == 'Menunggu Konfirmasi Pihak Hotel' %}
+                            <a href="{% url 'reservasi:cancel-reservasi' rsv.rsv_id %}">
+                                <button class="p-2 bg-red-500 text-white hover:bg-red-600 rounded">Cancel</button>
                             </a>
                             {% else %}
-                                <button class="p-2 bg-blue-500 text-white hover:bg-blue-600 rounded" onclick="showInactiveStatusAlert()">Complaint</button>
+                                <button class="p-2 bg-red-500 text-white hover:bg-red-600 rounded" onclick="showCancelStatusAlert()">Cancel</button>
+                            {% endif %}
+
+                            {% if rsv.isActive %}
+                            <a href="{% url 'reservasi:complaint' rsv.rsv_id %}">
+                                <button class="p-2 bg-gray-500 text-white hover:bg-gray-600 rounded">Complaint</button>
+                            </a>
+                            {% else %}
+                                <button class="p-2 bg-gray-500 text-white hover:bg-gray-600 rounded" onclick="showInactiveStatusAlert()">Complaint</button>
                             {% endif %}
                         </td>
                     </tr>
@@ -69,6 +88,9 @@
     <script>
         function showInactiveStatusAlert() {
             alert("Complaint submission is disabled for inactive reservations!");
+        }
+        function showCancelStatusAlert() {
+            alert("Tidak dapat membetalkan reservasi!");
         }
         function goBack() {
             window.history.back();

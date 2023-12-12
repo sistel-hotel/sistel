@@ -1,0 +1,117 @@
+{% extends 'base-tw.html' %} 
+{% load static %} 
+{% block meta %}
+  <title>Reservasi Kamar</title>
+{% endblock meta %} 
+{% block content %} 
+  {% include 'nav.html' with is_hotel=is_hotel %}
+  <div class="max-w-7xl my-20 min-h-screen mx-auto flex flex-col items-center w-screen px-4">
+    <h1 class="text-3xl font-bold my-8">Reservasi Form</h1>
+
+    <form action="{% url 'reservasi:buat-reservasi' %}" method="post" class="max-w-md w-full">
+      {% csrf_token %}
+
+      <input type="hidden" name="hotel_name" value="{{ request.GET.hotel_name }}">
+      <input type="hidden" name="hotel_branch" value="{{ request.GET.hotel_branch }}">
+      <input type="hidden" name="number" value="{{ request.GET.number }}">
+
+      <div class="mb-4">
+        <label for="start-date" class="block text-sm font-medium text-gray-600">Start Date</label>
+        <input
+          type="date"
+          id="start-date"
+          name="start-date"
+          class="mt-1 p-2 w-full border rounded-md"
+          value="{% now 'Y-m-d' %}"
+          min="{% now 'Y-m-d' %}"
+        />
+      </div>
+
+      <div class="mb-4">
+        <label for="end-date" class="block text-sm font-medium text-gray-600">End Date</label>
+        <input
+          type="date"
+          id="end-date"
+          name="end-date"
+          class="mt-1 p-2 w-full border rounded-md"
+          min="{% now 'Y-m-d' %}"
+        />
+      </div>
+
+      <div class="mb-7">
+        <label for="payment-option" class="block text-sm font-medium text-gray-600">Opsi Pembayaran</label>
+        <select
+          id="payment-option"
+          name="payment-option"
+          class="mt-1 p-2 w-full border rounded-md"
+          onchange="updatePaymentLabel(this.value)"
+        >
+          <option value="" selected disabled>Select payment method</option>
+          <option value="kredit">Kartu Kredit</option>
+          <option value="ewallet">E-Wallet</option>
+          <option value="debit">Debit</option>
+        </select>
+        <label for="payment" class="block text-sm font-medium text-gray-600 mt-4" id="payment-label">Payment</label>
+        <input
+          type="text"
+          id="payment"
+          name="payment"
+          class="mt-1 p-2 w-full border rounded-md"
+          disabled
+        />
+      </div>
+
+      <button
+        type="submit"
+        class="bg-blue-700 text-white py-2 px-4 rounded-md hover:bg-blue-800 focus:outline-none focus:ring focus:border-blue-300"
+      >
+        Submit
+      </button>
+      <button
+        type="button"
+        onclick="goBack()"
+        class="bg-red-700 text-white py-2 px-4 rounded-md hover:bg-red-800 focus:outline-none focus:ring focus:border-red-300"
+      >
+        Back
+      </button>
+    </form>
+  </div>
+
+  <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/toastify-js/src/toastify.min.css" />
+  <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/toastify-js"></script>
+
+  {% if not is_authorized %}
+    <script>
+      function goBack() {
+        window.history.back();
+      }
+
+      document.getElementById("back-btn").addEventListener("click", () => {
+        goBack();
+      });
+
+      function updatePaymentLabel(selectedPaymentOption) {
+        const paymentLabel = document.getElementById("payment-label");
+        const paymentInput = document.getElementById("payment");
+
+        paymentInput.disabled = false;
+
+        // Update the label based on the selected payment option
+        switch (selectedPaymentOption) {
+          case "kredit":
+            paymentLabel.textContent = "Credit Card Number";
+            break;
+          case "ewallet":
+            paymentLabel.textContent = "Phone Number";
+            break;
+          case "debit":
+            paymentLabel.textContent = "Debit Card Number";
+            break;
+          default:
+            paymentLabel.textContent = "Payment";
+        }
+        paymentInput.value = "";
+      }
+    </script>
+  {% endif %}
+{% endblock content %}

@@ -10,6 +10,8 @@ def dashboard_hotel(request):
     if not user_data:
         return redirect('/login/')
     #print(user_data)
+    
+    
     email = user_data['email']
     query = f"""
     SELECT * FROM hotel WHERE email = '{ email }'

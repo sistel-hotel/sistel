@@ -163,7 +163,7 @@ def detail_hotel(request, nama_hotel, nama_cabang_hotel):
             WHERE ROOM.hotel_name = '{nama_hotel}' AND ROOM.hotel_branch = '{nama_cabang_hotel}' AND 
             ROOM_FACILITIES.hotel_name = '{nama_hotel}' AND ROOM_FACILITIES.hotel_branch = '{nama_cabang_hotel}' AND ROOM.number NOT IN (
                 SELECT ROOM.number FROM RESERVATION_ROOM INNER JOIN ROOM ON 
-            RESERVATION_ROOM.rnum = ROOM.number WHERE RESERVATION_ROOM.isactive = TRUE AND 
+            RESERVATION_ROOM.rnum = ROOM.number WHERE RESERVATION_ROOM.isactive = True AND 
             ROOM.hotel_name = '{nama_hotel}' AND ROOM.hotel_branch = '{nama_cabang_hotel}'
             );
         """

@@ -1,0 +1,116 @@
+{% extends 'base-tw.html' %}
+{% load static %}
+{% block meta %}
+    <title>Reservasi Kamar</title>
+{% endblock meta %}
+
+{% block content %}
+{% include 'nav.html' with is_hotel=is_hotel %}
+<div class="max-w-7xl mt-16 min-h-screen mx-auto flex flex-col items-center  w-screen px-4 " >   
+    <div>
+        {% if room|length > 0 %}
+        <div class="w-full my-10">
+            <table class="min-w-full table-auto border border-gray-200 rounded-lg overflow-hidden outline outline-slate-200">
+                <thead>
+                    <tr>
+                        <th class="border-b bg-blue-500 text-white p-4">ID Reservasi</th>
+                        <th class="border-b bg-blue-500 text-white p-4">Nomor Kamar</th>
+                        <th class="border-b bg-blue-500 text-white p-4">Nama Hotel</th>
+                        <th class="border-b bg-blue-500 text-white p-4">Cabang Hotel</th>
+                        <th class="border-b bg-blue-500 text-white p-4">Date</th>
+                        <th class="border-b bg-blue-500 text-white p-4">Status Reservasi</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr class="text-center">
+                        <td class="border-b p-4">{{ room.id }}</td>
+                        <td class="border-b p-4">{{ room.room_number }}</td>
+                        <td class="border-b p-4">{{ room.hotel_name }}</td>
+                        <td class="border-b p-4">{{ room.hotel_branch }}</td>
+                        <td class="border-b p-4 whitespace-nowrap">{{ room.date }}</td>
+                        <td class="border-b p-4">
+                            <span class="{% if rsv.status %}text-green-500{% else %}text-red-500{% endif %}">
+                                {% if room.status %}Active{% else %}Inactive{% endif %}
+                            </span>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+        {% else %}
+        <div id="hotel-cards-container" class=" grow  flex justify-center items-center w-full">
+            <h1>
+                Tidak ada hotel yang sesuai
+            </h1>
+        </div>
+        {% endif %}    
+    
+    
+        <div class="w-full">
+            <table class="min-w-full table-auto border border-gray-200 rounded-lg overflow-hidden outline outline-slate-200 mb-5">
+                <thead>
+                    <tr>
+                        <th class="border-b bg-blue-500 text-white p-4">ID Shuttle</th>
+                        <th class="border-b bg-blue-500 text-white p-4">Nomor Kendaraan</th>
+                        <th class="border-b bg-blue-500 text-white p-4">No.Telp Driver</th>
+                        <th class="border-b bg-blue-500 text-white p-4">Date</th>
+                        <th class="border-b bg-blue-500 text-white p-4">Status</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% if shuttle|length > 0 %}
+                    <tr class="text-center">
+                        <td class="border-b p-4">{{ shuttle.id }}</td>
+                        <td class="border-b p-4">{{ shuttle.vehicle_num }}</td>
+                        <td class="border-b p-4">{{ shuttle.driver_phonenum }}</td>
+                        <td class="border-b p-4 whitespace-nowrap">{{ shuttle.date }}</td>
+                        <td class="border-b p-4">
+                            <span class="{% if rsv.status %}text-green-500{% else %}text-red-500{% endif %}">
+                                {% if shuttle.status %}Active{% else %}Inactive{% endif %}
+                            </span>
+                        </td>
+                    </tr>
+                    {% else %}
+                    <tr class="text-center">
+                        <td class="border-b p-4" colspan="5">
+                            <h1>
+                                Tidak ada reservasi untuk shuttle pada reservasi ini.
+                            </h1>
+                        </td>
+                    </tr>
+                    {% endif %}   
+                </tbody>
+            </table>
+            <div class="flex gap-1.5">
+                <button class="p-2 bg-gray-500 text-white hover:bg-gray-600 rounded" onclick="goBack()">Back</button>
+                <a href="/reservasi-hotel/cust/create-shuttle/{{rsv_id}}">
+                    <button class="p-2 bg-blue-500 text-white hover:bg-blue-600 rounded">Buat Reservasi Shuttle</button>
+                </a>
+            </div>
+        </div> 
+    </div>
+</div>
+<link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/toastify-js/src/toastify.min.css">
+<script type="text/javascript" src="https://cdn.jsdelivr.net/npm/toastify-js"></script> 
+
+
+{% if not is_authorized %}
+    <script>
+        function showInactiveStatusAlert() {
+            alert("Complaint submission is disabled for inactive reservations!");
+        }
+        function goBack() {
+            window.history.back();
+        }
+        document.getElementById('back-btn').addEventListener('click',()=>{
+            goBack()
+        })
+    </script>
+{% endif %}
+    
+    
+
+
+{% endblock content %}
+    
+    

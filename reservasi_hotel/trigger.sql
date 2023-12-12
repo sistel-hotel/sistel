@@ -5,7 +5,7 @@ BEGIN
         RAISE EXCEPTION 'Pihak Hotel hanya dapat melakukan perubahan status ke ''Ditolak oleh Hotel'' atau ''Terkonfirmasi oleh Hotel''';
     END IF;
 
-    IF OLD.rsid <> 'A7B1D9E4F2C5G3H0' THEN
+    IF  OLD.rsid NOT IN ('A7B1D9E4F2C5G3H0', 'gVmGZxNrVbOgGTYyhTnb', 'XTsJpaMwNMrkpjBNstWY', 'LABduoOaWJlzgCjvIkUY') THEN
         RAISE EXCEPTION 'Hotel hanya dapat mengubah reservasi dengan status ''Menunggu Konfirmasi Pihak Hotel''';
     END IF;
 

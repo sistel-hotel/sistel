@@ -37,6 +37,7 @@ def buat_shuttle(request, rsv_id):
                 VALUES ('{ordered_driver[0]}', '{ordered_vehicle_platnum}')
                 RETURNING driver_phonenum;
             """)
+            redirect(f'/reservasi/detail/{rsv_id}')
         except Exception as err:
             print(err)
             messages.error(request=request, message=err)
@@ -79,9 +80,24 @@ def update_reservation_kamar(request, rsv_id):
             SET rsid = '{selected_status_id}', datetime = '{current_datetime}'
             WHERE rid = '{rsv_id}' RETURNING rid;
         """
+            
             try:
                 update_status_res = execute_sql_query(query=query)
                 print(update_status_res)
+                query = ""
+                if selected_status_id == 'X9Y8Z7W6V5U4T3':
+                    query = f"""
+                    UPDATE RESEVATION_ROOM
+                    SET isactive = TRUE
+                    WHERE rsv_id = {rsv_id} RETURNING isactive;
+                    """
+                else:
+                    query = f"""
+                    UPDATE RESEVATION_ROOM
+                    SET isactive = FALSE
+                    WHERE rsv_id = {rsv_id} RETURNING isactive;
+                    """
+                execute_sql_query(query=query)
                 return redirect('/reservasi-hotel/hotel')
             except Exception as err:
                 messages.error(request=request,message=err)
@@ -167,7 +183,7 @@ def detail_reservasi(request, rsv_id):
     }
     print(context)
     print(res)
-    return render(request=request,template_name="detail-reservasi.html", context=context)
+    return render(request=request,template_name="detail-reservasi-by-hotel.html", context=context)
 
 #END
 @csrf_exempt

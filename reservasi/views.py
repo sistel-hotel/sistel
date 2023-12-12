@@ -1,6 +1,11 @@
 from django.shortcuts import render, redirect
 from django.http import HttpResponse
 from connect_postgres import execute_sql_query
+import random
+from datetime import datetime
+from django.shortcuts import render, redirect
+from django.http import HttpResponse
+from connect_postgres import execute_sql_query, execute_sql_query_no_fetch
 from django.views.decorators.csrf import csrf_exempt
 
 @csrf_exempt
@@ -11,9 +16,11 @@ def show_reservasi_kamar(request):
         return redirect('/login/')
     custemail = request.session['user_data']['email']
     query = f""" 
-                SELECT rr.rsv_id, rr.rNum, rr.rhotelname, rr.rhotelbranch, rr.Datetime, rr.isActive
+                SELECT rr.rsv_id, rr.rNum, rr.rhotelname, rr.rhotelbranch, rr.Datetime, rr.isActive, rs.status
                 FROM reservation r
                 JOIN reservation_room rr ON r.rID = rr.rsv_id
+                JOIN reservation_status_history rsh ON r.rID = rsh.rid
+                JOIN reservation_status rs ON rs.id = rsh.rsid
                 WHERE r.cust_email = '{custemail}'
                 """
     res = execute_sql_query(query=query)
@@ -27,6 +34,7 @@ def show_reservasi_kamar(request):
             'rhotelbranch': row[3],
             'Datetime': row[4],
             'isActive': row[5],
+            'status': row[6],
         })
     print(data)
     context = {
@@ -36,7 +44,7 @@ def show_reservasi_kamar(request):
 
 @csrf_exempt
 def complaint(request, id):
-    user_data = request.session.get('user_data') 
+    user_data = request.session['user_data']
     custemail = user_data['email']
     if not user_data:
         return redirect('/login/')
@@ -110,7 +118,7 @@ def save_complaint(request, id):
 
 @csrf_exempt
 def dashboard_pengguna(request):
-    user_data = request.session.get('user_data') 
+    user_data = request.session['user_data']
     if not user_data:
         return redirect('/login/')
     query = f"""
@@ -156,3 +164,139 @@ def dashboard_pengguna(request):
     return render(request, 'dashboard-pengguna.html', 
                   {'user_data': user_data, 'nik':nik, 'phone':phonenum, 
                                                       'complaints':complaints ,'comments':comments})
+
+
+def buat_reservasi(request):
+    def generate_random_string(length):
+        random_string = ''.join(random.choices('ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz', k=length))
+        return random_string
+    
+    def generate_payment_id():
+        part1 = ''.join(random.choices('0123456789', k=3))
+        part2 = ''.join(random.choices('0123456789', k=2))
+        part3 = ''.join(random.choices('0123456789', k=4))
+        random_string = f"{part1}-{part2}-{part3}"
+        return random_string
+    
+    if request.method == 'POST':
+
+        user_data = request.session['user_data']
+        email = user_data['email']
+
+        hotel_name = request.POST.get('hotel_name')
+        hotel_branch = request.POST.get('hotel_branch')
+        number = request.POST.get('number')
+
+        checkin = request.POST.get('start-date')
+        checkout = request.POST.get('end-date')
+        payment_option = request.POST.get('payment-option')
+        payment = request.POST.get('payment')
+        payment_id = generate_payment_id()
+
+        create_payment = execute_sql_query_no_fetch(f"""
+        INSERT INTO payment (payment_id, status) VALUES ('{payment_id}', 'pending')
+        """)
+
+        payment_query = ""
+        if payment_option == 'kredit':
+            payment_query += f"""
+            INSERT INTO kredit (no_kartu, payment_id) VALUES ('{payment}', '{payment_id}')
+            """
+        elif payment_option == 'debit':
+            payment_query += f"""
+            INSERT INTO debit (no_rekening, payment_id) VALUES ('{payment}', '{payment_id}')
+            """
+        elif payment_option == 'ewallet':
+            payment_query += f"""
+            INSERT INTO ewallet (phone_num, payment_id) VALUES ('{payment}', '{payment_id}')
+            """
+
+        create_payment_method = execute_sql_query_no_fetch(payment_query)
+
+        rid = generate_random_string(20)
+
+        hotel = execute_sql_query(f"""
+        SELECT * FROM room WHERE 
+        hotel_name = '{hotel_name}' AND 
+        hotel_branch = '{hotel_branch}' AND 
+        number = '{number}.0'
+        """)
+
+        hotel = hotel[0]
+
+        reservation_query = execute_sql_query_no_fetch(f"""
+        INSERT INTO reservation (rid, total_price, checkin, checkout, payment, cust_email)
+        VALUES('{rid}', '{hotel[3]}', '{checkin}', '{checkout}', '{payment_id}', '{email}')
+        """)
+        formatted_datetime = datetime.now().strftime('%Y-%m-%d %H:%M:%S')
+        reservation_status_query = execute_sql_query_no_fetch(f"""
+        INSERT INTO reservation_status_history (rid, rsid, datetime)
+        VALUES('{rid}', 'A7B1D9E4F2C5G3H0', '{formatted_datetime}')
+        """)
+
+        date = datetime.today().strftime('%Y-%m-%d')
+
+        reservation_room_query = execute_sql_query_no_fetch(f"""
+        INSERT INTO reservation_room (rsv_id, rnum, rhotelname, rhotelbranch, datetime, isactive)
+        VALUES('{rid}', '{number}.0', '{hotel_name}', '{hotel_branch}', '{date}', 'false')
+        """)
+
+        print(reservation_room_query)
+
+        return redirect('reservasi:show-reservasi')
+    else:
+        return render(request, 'buat-reservasi.html')
+    
+
+def detail_reservasi(request, id):
+    room_query = execute_sql_query(f"""
+    SELECT * FROM reservation_room
+    WHERE rsv_id = '{id}'
+    """)
+
+    hotel = room_query[0]
+
+    hotel_data = {
+        'id': hotel[0],
+        'room_number': hotel[1],
+        'hotel_name': hotel[2],
+        'hotel_branch': hotel[3],
+        'date': hotel[4],
+        'status': hotel[5],
+    }
+
+    shuttle_query = execute_sql_query(f"""
+    SELECT * FROM reservation_shuttleservice
+    WHERE rsv_id = '{id}'
+    """)
+
+    shuttle_data = {}
+    if(shuttle_query):
+        shuttle = shuttle_query[0]
+
+        shuttle_data = {
+            'id': shuttle[0],
+            'vehicle_num': shuttle[1],
+            'driver_phonenum': shuttle[2],
+            'date': shuttle[3],
+            'status': shuttle[4],
+        }
+
+    context = {
+        'room': hotel_data,
+        'shuttle': shuttle_data,
+        'rsv_id': id
+    }
+
+    print(context)
+
+    return render(request, 'detail-reservasi.html', context)
+
+def cancel_reservasi(request, id):
+    update_status = execute_sql_query_no_fetch(f"""
+    UPDATE  reservation_status_history 
+     SET rsid = 'gVmGZxNrVbOgGTYyhTnb' WHERE rid = '{id}'
+    """)
+
+    return redirect('reservasi:show-reservasi')
+

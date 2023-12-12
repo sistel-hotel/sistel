@@ -299,9 +299,12 @@
                                 <td class="min-w-[25%] w-[25%] text-left pl-2  ">Rp{{room.price}}</td>
                                 <td class="min-w-[20%] w-[20%]  text-justify pl-2 flex items-start justify-start  ">
                                     <div class="flex  flex-col items-center lg:space-x-4 space-y-4 lg:space-y-0">
-                                        <a   class=" max-w-full bg-slate-900 hover:bg-blue-900 text-white font-semibold py-2 px-4 rounded-md flex justify-center items-center">
-                                            <h1 class="text-xs" >Reservasi</h1>
-                                        </a>
+                                        <form action="{% url 'reservasi:buat-reservasi' %}" method="get">
+                                            <input type="hidden" name="hotel_name" value="{{ hotel.hotel_name }}">
+                                            <input type="hidden" name="hotel_branch" value="{{ hotel.hotel_branch }}">
+                                            <input type="hidden" name="number" value="{{ room.room_number }}">
+                                            <button type="submit" class="text-xs max-w-full bg-slate-900 hover:bg-blue-900 text-white font-semibold py-2 px-4 rounded-md flex justify-center items-center">Reservasi</button>
+                                        </form>
                                         
                                     </div>
                                 </td>
