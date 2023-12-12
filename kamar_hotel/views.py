@@ -45,6 +45,7 @@ def kamar_hotel(request):
 
 	return render(request, "kamarhotel.html", context)
 
+@csrf_exempt
 def show_create_kamar_hotel(request):
 	context = {
 		'is_hotel':True
@@ -61,6 +62,7 @@ def show_create_kamar_hotel(request):
 				context['message'] = parse_error_message(data['msg'])
 	return render(request, "show_create_kamar_hotel.html", context)
 
+@csrf_exempt
 def create_kamar_hotel(request, nomor, harga, lantai):
 	nama_hotel, hotel_branch = get_nama_branch_hotel(request)
 
