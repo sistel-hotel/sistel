@@ -1,5 +1,6 @@
 """
 URL configuration for sistel project.
+
 The `urlpatterns` list routes URLs to views. For more information please see:
     https://docs.djangoproject.com/en/4.2/topics/http/urls/
 Examples:
@@ -18,6 +19,8 @@ from django.urls import path, include
 
 urlpatterns = [
     path('admin/', admin.site.urls),
-    path('reservasi/', include('DaftarReservasiHotel.urls')),
-    
+    path('hotel/', include('hotel.urls')),
+    path('hotels/', include('hotels_and_reviews.urls')),
+    path('reservasi/', include('reservasi.urls')),
+    path('', include('authentication.urls')),
 ]
