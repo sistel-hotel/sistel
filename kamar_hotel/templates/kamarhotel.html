@@ -1,0 +1,54 @@
+{% extends 'base-tw.html'%}
+{% load static %}
+
+{% block meta %}
+<title>SISTEL | Daftar Kamar </title>
+{% endblock meta %}
+
+{% block content %}
+{% include 'nav.html' with is_hotel=is_hotel %}
+
+<main class="flex items-center justify-center min-h-screen">
+  <div class="container mx-auto mt-5">
+    <div class="p-6 bg-white shadow-md rounded-lg border border-primary">
+      <h1 class="text-3xl mb-6 mt-12 text-primary text-center">Kamar Hotel</h1>
+      <a href="{% url 'kamar_hotel:show_create_kamar_hotel' %}" class="inline-block mb-4">
+        <button class="bg-blue-400 text-white px-4 py-2 rounded-md hover:bg-opacity-75 focus:outline-none">Tambah Kamar</button>
+      </a>
+      <table class="min-w-full bg-white border-collapse border border-gray-300">
+        <thead class="bg-gray-800 text-white">
+          <tr>
+            <th class="py-2 px-4">Nomor Kamar</th>
+            <th class="py-2 px-4">Harga</th>
+            <th class="py-2 px-4">Lantai</th>
+            <th class="py-2 px-4">Daftar Fasilitas</th>
+            <th class="py-2 px-4">Hapus Kamar</th>
+          </tr>
+        </thead>
+        <tbody>
+          {% for kamar in data_kamar %}
+          <tr class="border-t border-gray-300">
+            <td class="py-2 px-4">{{ kamar.number }}</td>
+            <td class="py-2 px-4">{{ kamar.price }}</td>
+            <td class="py-2 px-4">{{ kamar.floor }}</td>
+            <td class="py-2 px-4">{{ kamar.facilities }}</td>
+            <td class="py-2 px-4">
+              <form method="POST" action="/kamar-hotel/delete/">
+                {% csrf_token %}
+                <input type="text" name="nomor" class="hidden" value="{{kamar.number}}">
+                <button class="bg-red-500 text-black px-3 py-1 rounded-md hover:bg-opacity-75 focus:outline-none"
+                    type="submit">Pilih</button>
+            </form>
+            </td>
+          </tr>
+          {% endfor %}
+        </tbody>
+      </table>
+    </div>
+  </div>
+</main>
+
+<script>
+  // Your JavaScript code here
+</script>
+{% endblock content %}

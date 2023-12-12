@@ -1,0 +1,43 @@
+{% extends 'base-tw.html'%}
+{% load static %}
+
+{% block meta %}
+<title>SISTEL | Tambah Kamar </title>
+{% endblock meta %}
+
+{% block content %}
+{% include 'nav.html' with is_hotel=is_hotel %}
+
+<main class="flex justify-center items-center h-screen">
+    <div class="w-full md:w-1/2 p-5 shadow-md border rounded-lg border-primary grad">
+        <h1 class="text-center mb-4 text-primary text-3xl">Form Tambah Kamar</h1>
+        <form id="form-submit-kamar" method="POST" action="{% url 'kamar_hotel:show_create_kamar_hotel' %}"
+            class="space-y-4">
+            {% csrf_token %}
+            <div>
+                <label for="inputNomor" class="block text-gray-700">Nomor Kamar</label>
+                <input type="number" class="w-full border border-primary rounded-md py-2 px-3 focus:outline-none"
+                    id="nomor" name="nomor" required>
+            </div>
+            <div>
+                <label for="inputHarga" class="block text-gray-700">Harga</label>
+                <input type="number" class="w-full border border-primary rounded-md py-2 px-3 focus:outline-none"
+                    id="price" name="price" required>
+            </div>
+            <div>
+                <label for="inputLantai" class="block text-gray-700">Lantai</label>
+                <input type="number" class="w-full border border-primary rounded-md py-2 px-3 focus:outline-none"
+                    id="lantai" name="lantai" required>
+            </div>
+            <div class="flex justify-center">
+                <button class="bg-blue-500 text-white py-2 px-4 rounded-md hover:bg-opacity-75 focus:outline-none"
+                    type="submit" name="submitKamar">Tambah Kamar</button>
+            </div>
+        </form>
+    </div>
+</main>
+
+<script>
+    // Your JavaScript code here
+</script>
+{% endblock content %}
